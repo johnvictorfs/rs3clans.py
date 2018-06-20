@@ -8,16 +8,21 @@ Current Version: 0.3.1
 ## Setup:
 
 ```bash
-python3 -m pip install rs3clans
+python -m pip install rs3clans
 ```
 
 ***
+
+### Examples:
+
+* Go into the examples file for examples on usage of the module.
 
 ### Usage:
 
 * Import:
 
 ```python3
+# I would personally recommend importing as a smaller name (e.g.: import rs3clans as rs3)
 import rs3clans
 ```
 
@@ -78,5 +83,5 @@ rs3clans.get_player_count('clan_name')
 * Getting the average clan exp per player in a Clan (type: float):
 
 ```python
-get_average_clan_exp('clan_name')
+rs3clans.get_average_clan_exp('clan_name')
 ```
