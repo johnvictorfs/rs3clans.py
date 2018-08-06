@@ -183,9 +183,14 @@ if __name__ == '__main__':
 
     player = Player("nriver")  # Creating Player "player" passing its name as "nriver"
     clan = Clan(player.clan, set_exp=True)  # Creating Clan "clan" passing its name as the clan of "player"
-    print(player.name)
+    print(player.name)  # Prints the player name, as passed into object Player
     print(player.info)  # Prints some player info in Dictionary format
     print(player.clan)  # Printing "player"'s Clan
     print(clan.exp)  # Printing the total exp of "clan"
     print(clan.member['Pedim'])  # Printing info in Dictionary format of the "clan"'s member "Pedim"
     print(clan.member['Pedim']['rank'])  # Printing the 'rank' of "Pedim" in his clan
+
+    try:
+        clan = Clan("adnygydbydby2bdyb28123")
+    except ClanNotFoundError:
+        print("A wild exception has been spotted.")
