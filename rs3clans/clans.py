@@ -2,16 +2,7 @@
 import csv
 import codecs
 import urllib.request
-import json
 
-__author__ = 'John Victor'
-
-"""
-TODO:
-
-- Change self.name in Player to be the player's real name after creating the object instead of as passed. (Look into Runemetrics API)
-
-"""
 
 class ClanNotFoundError(Exception):
     
@@ -131,73 +122,10 @@ class Clan:
         return sum(members['exp'] for members in clan_dict.values())
 
 
-class Player:
-
-    def __init__(self, name):
-        self.name = name
-        self.info = self.dict_info()
-        self.suffix = self.info['isSuffix']
-        self.name = self.info['name']
-        self.title = self.info['title']
-        try:
-            self.clan = self.info['clan']
-        except KeyError:
-            self.clan = None
-
-    def raw_info(self):
-        info_url = (f"http://services.runescape.com/m=website-data/playerDetails.ws?names=%5B%22{self.name},"
-               f"%22%5D&callback=jQuery000000000000000_0000000000&_=0")
-        client = urllib.request.urlopen(info_url)
-        return str(client.read())
-
-    def dict_info(self):
-        """
-        Gets the raw string info from self.raw_info() and formats it into Dictionary format as follows:
-
-        self.info = {
-            'isSuffix': True,
-            'recruiting': True,
-            'name': 'nriver',
-            'clan': 'Atlantis',
-            'title': 'the Liberator'
-        }
-
-        isSuffix (bool): If the player's title is a Suffix or not
-        recruiting (bool): If the player's clan is set as Recruiting or not
-        name (str): The player's name, passed as is when creating object Player
-        clan (str): The player's clan name
-        title (str): The player's current title
-
-        Used to make self.info.
-        """
-        str_info = self.raw_info()
-        info_list = []
-        # str_info[36] = Start of json format in URL '{'
-        for letter in str_info[36:]:
-            info_list.append(letter)
-            if letter == '}':
-                break
-        info_list = ''.join(info_list)
-        info_dict = json.loads(info_list)
-        info_dict['name'] = info_dict['name'].replace(',', '')
-        return info_dict
-
-
-# Some simple tests
 if __name__ == '__main__':
-
-    player = Player("nriver")  # Creating Player "player" passing its name as "nriver"
-    clan = Clan(player.clan, set_exp=True)  # Creating Clan "clan" passing its name as the clan of "player"
-    print("Player Name:", player.name)  # Prints the player name, as passed into object Player
-    print("Player Info:", player.info)  # Prints some player info in Dictionary format
-    print("Player Clan:", player.clan)  # Printing "player"'s Clan
-    print("Clan Exp:", clan.exp)  # Printing the total exp of "clan"
-    print("Clan info of 'Pedim':", clan.member['Pedim'])  # Printing info in Dictionary format of the "clan"'s member "Pedim" (case-sensitive)
-    print("Rank of 'Pedim':", clan.member['Pedim']['rank'])  # Printing the 'rank' of "Pedim" in his clan
-    print("Player Count of clan:", clan.count)  # Printing the player count of clan
-    print("Average Clan Exp per member:", clan.avg_exp)  # Printing the average clan exp per member of clan
-
-    try:
-        clan = Clan("adnygydbydby2bdyb28123")
-    except ClanNotFoundError:
-        print("A wild exception flew by.")
+    clan = Clan("Atlantis", set_exp=True)  # Create Clan with the name "Atlantis"
+    print(clan.member['NRiver'])  # Info from member "NRiver"
+    print(clan.exp)  # Total Exp of the clan
+    print(clan.avg_exp)  # Average Clan Exp per Member of the clan
+    print(clan.name)  # Clan Name as passed when creating object Clan
+    print(clan.count)  #  Number of members in clan

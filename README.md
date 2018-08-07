@@ -1,7 +1,7 @@
 # rs3clans.py
 A Python 3 module wrapper for RuneScape 3 Clan's API
 
-Current Version: 0.4.1
+Current Version: 0.4.2
 
 ***
 
@@ -26,4 +26,4 @@ python -m pip install rs3clans
 import rs3clans
 ```
 
-- Since i have rewritten the entire module, i still haven't remade the docs for it. Read the comments in the source code instead. There are a few examples of usage in it as well, just run it and have a look.
+- Since i have rewritten the entire module, i still haven't remade the docs for it. Read the comments in the source code instead. There are a few examples of usage in it as well, just run it and have a look. Also look into the 'tests' folder for some examples.
