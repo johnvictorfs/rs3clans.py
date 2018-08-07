@@ -1,195 +1,203 @@
-# Imports for get_clan_list
+# Standard Imports
 import csv
-import urllib.request
 import codecs
+import urllib.request
+import json
+
+__author__ = 'John Victor'
 
 """
-rs3clans.py Module
+TODO:
 
-Made by: John Victor
+- Change self.name in Player to be the player's real name after creating the object instead of as passed. (Look into Runemetrics API)
 
-List of functions:
-
-# Added v0.1
-get_clan_list(clan_name)
-- Returns a List of Members and their info in a Clan (csv.reader)
-For row As: ['user_name', 'rank', 'clan_exp', 'kills']
-
-# Added v0.1
-get_clan_exp(clan_name)
-- Returns Total Clan Exp of a Clan (Int)
-
-# Added v0.1
-get_user_clan_exp(user_name, clan_name)
-- Returns User Clan Exp (Int)
-
-# Added v0.1
-get_user_rank(user_name, clan_name)
-- Returns a User's Rank in a Clan (Str)
-
-# Added v0.1
-get_user_info(user_name, clan_name)
-- Returns All available Clan info (List)
-As: ['user_name', 'rank', 'clan_exp', 'kills']
-
-# Added v0.1
-get_player_count(clan_name)
-- Returns Player count of a Clan (Int)
-
-# Added v0.1
-get_average_clan_exp(clan_name)
-- Returns the average Clan Exp per member in a Clan (Int)
-
-
-RS3 API: http://runescape.wikia.com/wiki/Application_programming_interface
 """
 
-# Clan List .csv format:
-#
-# ['user_name', 'rank', 'clan_exp', 'kills']
-#
-# Everything is read as a string and the single quotes are included.
-# Use values explictly
-#
-# Example:
-# - Getting clan exp from a user that has 323,142,653 Clan Exp:
-#
-# int(user_info[2])  # Output(int): 323142653
-# user_info[2]  # Output(string): '323142653'
+class ClanNotFoundError(Exception):
+    
+    def __init__(self, value):
+        self.value = value
+ 
+    
+    def __str__(self):
+        return(repr(self.value))
 
 
-def get_clan_list(clan_name):
-    """
-    Gets a clan_list using csv.reader and returns it.
-    It does NOT return a List type.
+class Clan:
 
-    If you wish to use it as is, you will have to iterate over it,
-    you can append the list into another format for usability.
-    """
-    url = 'http://services.runescape.com/m=clan-hiscores/members_lite.ws?clanName='  # noqa
-    url += clan_name
+    def __init__(self, name, set_exp=False, set_dict=True, rank_key='rank', exp_key='exp'):
+        """
+        self.name = The name of the clan. Set when creating object.
+        self.exp = The total Exp of the clan.
+        self.member = Gets all the info from members of the clan in the dictionary format below:
+        self.count = The number of members in the Clan.
+        self.avg_exp = The average clan exp per member in the Clan.
 
-    read_url = urllib.request.urlopen(url)
+        self.member = {
+                'player_1': {
+                    exp_key: 225231234,
+                    rank_key: 'Leader'
+                },
+                'player_2': {
+                    exp_key: 293123082,
+                    rank_key: 'Overseer'
+                }
+            }
 
-    # errors="replace" is for names that contains spaces
-    clan_list = csv.reader(codecs.iterdecode(read_url, 'utf-8',
-                                             errors="replace"))
+        For self.exp to be calculated, argument set_exp has to be True. (False by default)
+        For self.member and self.coun to be made, argument set_dict has to be True. (True by default)
+        For self.avg_exp both set_exp and set_dict have to be True
+        """
+        self.name = name
+        self.exp = None
+        self.member = None
 
-    return clan_list
+        if set_exp is True:
+            self.exp = self.list_sum()
+        if set_dict is True:
+            self.member = self.dict_lookup()
+            self.count = len(self.member)
+        if set_exp is True and set_dict is True:
+            self.avg_exp = self.exp/self.count
 
+    def list_lookup(self):
+        """
+        Used for getting all information available from a clan using Rs3's Clan API.
 
-def get_clan_exp(clan_name):
-    """
-    Gets the Total clan exp from clan_name and returns it.
-    Returned Value is an Integer and can be used as such normally.
+        Returns it with a list format.
 
-    It gets the Total clan exp adding up from every member in the clan,
-    thus it's not very fast since those values are not cached somewhere.
-    """
-    clan_list = get_clan_list(clan_name)
-    total_exp = 0
-    for row in clan_list:
+        Mainly used for calculating the total exp of a clan manually.
+
+        Look at dict_lookup() and self.member for info from specific members of the clan.
+        """
+        clan_url = f'http://services.runescape.com/m=clan-hiscores/members_lite.ws?clanName={self.name}'
         try:
-            if (row[2] != ' Total XP'):
-                total_exp += int(row[2])
-        except IndexError:
-            print("Error: Invalid Clan name '{}'".format(clan_name))
-            return 0
-    return total_exp
+            read_url = urllib.request.urlopen(clan_url)
+        except urllib.error.URLError:
+            raise ClanNotFoundError(f"Couldn't connect to clan: {self.name}")
 
+        # errors="replace" is for names that contains spaces, will replace with "�"
+        return list(csv.reader(codecs.iterdecode(read_url, encoding='utf-8', errors="replace")))
 
-def get_user_clan_exp(user_name, clan_name):
-    """
-    Gets the total Clan Exp from a user in clan_name and returns it.
-    Returned Value is an Integer and can be used as such normally.
-    """
-    clan_list = get_clan_list(clan_name)
-    for row in clan_list:
+    def dict_lookup(self, rank_key="rank", exp_key="exp"):
+        """
+        Used for getting all information available from a clan using Rs3's Clan API.
+
+        Contrary to list_lookup() it returns it as a Dictionary format instead.
+        The dictformat makes easier to find info specific to certain members of the Clan instead of looping over it.
+        
+        It's used for making self.member dictionary when set_dict argument is passed as true when creating a Clan object.
+        """
+        clan_url = f'http://services.runescape.com/m=clan-hiscores/members_lite.ws?clanName={self.name}'
         try:
-            if (row[0].lower() == user_name.lower()):
-                return int(row[2])
-        except IndexError:
-            print("Error: Invalid Clan name '{}'".format(clan_name))
-            return 0
-    print("Error: User '{}' not found in clan '{}'".format(user_name,
-                                                           clan_name))
-    return 0
+            read_url = urllib.request.urlopen(clan_url)
+        except urllib.error.URLError:
+            raise ClanNotFoundError(f"Couldn't connect to clan: {self.name}")
+        # errors="replace" is for names that contains spaces, will replace with "�"
+        clan_list = list(csv.reader(codecs.iterdecode(read_url, encoding='utf-8', errors="replace")))
+        if clan_list[0][0] != "Clanmate":
+            raise ClanNotFoundError(f"Couldn't find clan: {self.name}")
+            return 1
+        clan_dict = {}
+        
+        for row in clan_list[1:]:
+            user_rank = row[1]
+            username = row[0].replace("�", " ").replace("+", " ").replace("%20", " ")
+            user_exp = int(row[2])
+
+            clan_dict[username] = {
+                rank_key: user_rank,
+                exp_key: user_exp
+            }
+        return clan_dict
+
+    def list_sum(self):
+        """
+        Sums the total exp of a clan.
+        It's used for making self.exp when set_exp argument is passed as true when creating a Clan object.
+        """
+        clan_list = self.list_lookup()
+        if clan_list[0][0] != "Clanmate":
+            raise ClanNotFoundError(f"Couldn't find clan: {self.name}")
+            return 1
+        return sum(int(row[2]) for row in clan_list[1:])
 
 
-def get_user_rank(user_name, clan_name):
-    """
-    Gets a user's rank in clan_name and returns it.
-    Returned Value is a String and can be used as such normally.
-    """
-    clan_list = get_clan_list(clan_name)
-    for row in clan_list:
+    def dict_sum(self):
+        """
+        Deprecated. Use list_sum() instead. It's faster.
+        """
+        clan_dict = self.dict_lookup()
+        return sum(members['exp'] for members in clan_dict.values())
+
+
+class Player:
+
+    def __init__(self, name):
+        self.name = name
+        self.info = self.dict_info()
+        self.suffix = self.info['isSuffix']
+        self.name = self.info['name']
+        self.title = self.info['title']
         try:
-            if (row[0].lower() == user_name.lower()):
-                return str(row[1])
-        except IndexError:
-            print("Error: Invalid Clan name '{}'".format(clan_name))
-            return 0
-    print("Error: User '{}' not found in clan '{}'".format(user_name,
-                                                           clan_name))
-    return 0
+            self.clan = self.info['clan']
+        except KeyError:
+            self.clan = None
+
+    def raw_info(self):
+        info_url = (f"http://services.runescape.com/m=website-data/playerDetails.ws?names=%5B%22{self.name},"
+               f"%22%5D&callback=jQuery000000000000000_0000000000&_=0")
+        client = urllib.request.urlopen(info_url)
+        return str(client.read())
+
+    def dict_info(self):
+        """
+        Gets the raw string info from self.raw_info() and formats it into Dictionary format as follows:
+
+        self.info = {
+            'isSuffix': True,
+            'recruiting': True,
+            'name': 'nriver',
+            'clan': 'Atlantis',
+            'title': 'the Liberator'
+        }
+
+        isSuffix (bool): If the player's title is a Suffix or not
+        recruiting (bool): If the player's clan is set as Recruiting or not
+        name (str): The player's name, passed as is when creating object Player
+        clan (str): The player's clan name
+        title (str): The player's current title
+
+        Used to make self.info.
+        """
+        str_info = self.raw_info()
+        info_list = []
+        # str_info[36] = Start of json format in URL '{'
+        for letter in str_info[36:]:
+            info_list.append(letter)
+            if letter == '}':
+                break
+        info_list = ''.join(info_list)
+        info_dict = json.loads(info_list)
+        info_dict['name'] = info_dict['name'].replace(',', '')
+        return info_dict
 
 
-def get_user_info(user_name, clan_name):
-    """
-    Gets a user's clan info from clan_name and returns it as a List.
-
-    Elements from the List can be accessed as you would normally with a List.
-
-    List is formatted as:
-    ['user_name', 'rank', 'clan_exp', 'kills']
-    """
-    clan_list = get_clan_list(clan_name)
-    clan_info = []
-    for row in clan_list:
-        try:
-            if (row[0].lower() == user_name.lower()):
-                clan_info.append(row[0])  # user_name
-                clan_info.append(row[1])  # rank
-                clan_info.append(row[2])  # clan_exp
-                clan_info.append(row[3])  # kills
-                return clan_info
-        except IndexError:
-            print("Error: Invalid Clan name '{}'".format(clan_name))
-            return 0
-    print("Error: User '{}' not found in clan '{}'".format(user_name,
-                                                           clan_name))
-    return 0
-
-
-def get_player_count(clan_name):
-    """
-    Gets the Total player count from clan_name and returns it.
-    Returned Value is an Integer and can be used as such normally.
-
-    Since Jagex's RS3 API takes a while to register when someone leaves a clan,
-    this count may take a while to update.
-    """
-    clan_list = get_clan_list(clan_name)
-    number_of_players = 0
-    if 'Clanmate' in clan_list:
-        for row in clan_list:
-                print(row)
-                number_of_players += 1
-    else:
-        print("Error: Invalid Clan name '{}'".format(clan_name))
-        return 0
-    return number_of_players
-
-
-def get_average_clan_exp(clan_name):
-    """
-    Gets the Average clan exp from clan_name per Member and returns it.
-    Returned Value is an Integer and can be used as such normally.
-    """
-    number_of_players = get_player_count(clan_name)
-    total_clan_exp = get_clan_exp(clan_name)
-    mean_clan_exp = total_clan_exp / number_of_players
-    return mean_clan_exp
-
+# Some simple tests
 if __name__ == '__main__':
-	print(get_clan_exp("Efficiency Experts"))
+
+    player = Player("nriver")  # Creating Player "player" passing its name as "nriver"
+    clan = Clan(player.clan, set_exp=True)  # Creating Clan "clan" passing its name as the clan of "player"
+    print("Player Name:", player.name)  # Prints the player name, as passed into object Player
+    print("Player Info:", player.info)  # Prints some player info in Dictionary format
+    print("Player Clan:", player.clan)  # Printing "player"'s Clan
+    print("Clan Exp:", clan.exp)  # Printing the total exp of "clan"
+    print("Clan info of 'Pedim':", clan.member['Pedim'])  # Printing info in Dictionary format of the "clan"'s member "Pedim" (case-sensitive)
+    print("Rank of 'Pedim':", clan.member['Pedim']['rank'])  # Printing the 'rank' of "Pedim" in his clan
+    print("Player Count of clan:", clan.count)  # Printing the player count of clan
+    print("Average Clan Exp per member:", clan.avg_exp)  # Printing the average clan exp per member of clan
+
+    try:
+        clan = Clan("adnygydbydby2bdyb28123")
+    except ClanNotFoundError:
+        print("A wild exception flew by.")
