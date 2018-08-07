@@ -8,7 +8,7 @@ setuptools.setup(
     description='A Python 3 module wrapper for RuneScape 3 Clan\'s API',
     long_description=long_description,
     long_description_content_type='text/markdown',
-    version='0.4.3',
+    version='0.4.4',
     author='John Victor',
     author_email='johnvictorfs@gmail.com',
     license='MIT',
