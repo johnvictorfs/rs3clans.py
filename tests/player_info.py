@@ -17,6 +17,6 @@ if __name__ == '__main__':
     print("Average Clan Exp per member:", clan.avg_exp)  # Printing the average clan exp per member of clan
 
     try:
-        clan = Clan("adnygydbydby2bdyb28123")
+        clan = rs3.Clan("adnygydbydby2bdyb28123")
     except rs3.ClanNotFoundError:
         print("A wild exception flew by.")
