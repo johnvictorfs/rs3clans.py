@@ -7,6 +7,11 @@ class Player:
 
     def __init__(self, name):
         self.name = name
+
+        # If user's runemetrics profile is private, self.name will be the same as passed when creating object.
+        # Otherwise it will get the correct case-sensitive name from his runemetrics profile.
+        if self.get_username():
+            self.name = self.get_username()
         self.info = self.dict_info()
         self.suffix = self.info['isSuffix']
         self.title = self.info['title']
@@ -14,6 +19,7 @@ class Player:
             self.clan = self.info['clan']
         except KeyError:
             self.clan = None
+
 
     def raw_info(self):
         info_url = (f"http://services.runescape.com/m=website-data/playerDetails.ws?names=%5B%22{self.name},"
@@ -53,9 +59,22 @@ class Player:
         info_dict['name'] = info_dict['name'].replace(',', '')
         return info_dict
 
+    def runemetrics_info(self, user_name):
+        info_url = (f"https://apps.runescape.com/runemetrics/profile/profile?user={user_name}&activities=0")
+        client = urllib.request.urlopen(info_url)
+        info = client.read()
+        return json.loads(info)
+
+    def get_username(self):
+        info = self.runemetrics_info(self.name)
+        try:
+            return info['name']
+        except KeyError:
+            return False
+
 
 if __name__ == '__main__':
-    player = Player("NRiver")  # Creating Player with the name "NRiver"
+    player = Player("nriver")  # Creating Player with the name "NRiver"
     print(player.name)  # Player name
     print(player.info)  # Player info
     print(player.clan)  # Player clan
