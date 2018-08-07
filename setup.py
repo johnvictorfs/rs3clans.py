@@ -6,7 +6,7 @@ setup(
     long_description='''# rs3clans.py
 A Python 3 module wrapper for RuneScape 3 Clan's API
 
-Current Version: 0.3.2
+Current Version: 0.4.0
 
 ***
 
@@ -30,7 +30,7 @@ import rs3clans
 ```
     ''',
     long_description_content_type='text/markdown',
-    version='0.3.2',
+    version='0.4.0',
     author='John Victor',
     author_email='johnvictorfs@gmail.com',
     license='MIT',
