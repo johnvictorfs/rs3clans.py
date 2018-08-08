@@ -1,6 +1,6 @@
 Metadata-Version: 2.1
 Name: rs3clans
-Version: 0.4.4
+Version: 0.4.5
 Summary: A Python 3 module wrapper for RuneScape 3 Clan's API
 Home-page: https://github.com/johnvictorfs/rs3clans.py
 Author: John Victor
@@ -9,7 +9,7 @@ License: MIT
 Description: # rs3clans.py
         A Python 3 module wrapper for RuneScape 3 Clan's API
         
-        Current Version: 0.4.4
+        Current Version: 0.4.5
         
         ***
         
