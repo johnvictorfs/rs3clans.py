@@ -9,12 +9,14 @@ class ClanNotFoundError(Exception):
     Error exception to be called when a clan is not found when trying to read the clan's URL using Rs3's Official API.
 
     Correct error handling when reading a clan:
-
+    
+    >>> import rs3clans
     >>> try:
-            clan_name = "=nfnewweunfiwnfskdnfjnwui"
+            clan_name = "=nfnewweunfiwnfskdnfjnwui"  # Invalid clan name
             clan = rs3clans.Clan("name=clan_name")
         except rs3clans.ClanNotFoundError:
-            pass  # Handle error here
+            print("Exception encountered!")  # Handle error here
+    Exception encountered!
     """
     def __init__(self, value):
         self.value = value
