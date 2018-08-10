@@ -9,7 +9,7 @@ class ClanNotFoundError(Exception):
     Error exception to be called when a clan is not found when trying to read the clan's URL using Rs3's Official API.
 
     Correct error handling when reading a clan:
-    
+
     >>> import rs3clans
     >>> try:
             clan_name = "=nfnewweunfiwnfskdnfjnwui"  # Invalid clan name
@@ -18,10 +18,10 @@ class ClanNotFoundError(Exception):
             print("Exception encountered!")  # Handle error here
     Exception encountered!
     """
+
     def __init__(self, value):
         self.value = value
- 
-    
+
     def __str__(self):
         return(repr(self.value))
 
@@ -88,7 +88,7 @@ class Clan:
 
         Contrary to list_lookup() it returns it as a Dictionary format instead.
         The dictformat makes easier to find info specific to certain members of the Clan instead of looping over it.
-        
+
         It's used for making self.member dictionary when set_dict argument is passed as true when creating a Clan object.
         """
         clan_url = f'http://services.runescape.com/m=clan-hiscores/members_lite.ws?clanName={self.name}'
@@ -97,12 +97,13 @@ class Clan:
         except urllib.error.URLError:
             raise ClanNotFoundError(f"Couldn't connect to clan: {self.name}")
         # errors="replace" is for names that contains spaces, will replace with "�"
-        clan_list = list(csv.reader(codecs.iterdecode(read_url, encoding='utf-8', errors="replace")))
+        clan_list = list(csv.reader(codecs.iterdecode(
+            read_url, encoding='utf-8', errors="replace")))
         if clan_list[0][0] != "Clanmate":
             raise ClanNotFoundError(f"Couldn't find clan: {self.name}")
             return 1
         clan_dict = {}
-        
+
         for row in clan_list[1:]:
             user_rank = row[1]
             username = row[0].replace("�", " ")
@@ -125,7 +126,6 @@ class Clan:
             return 1
         return sum(int(row[2]) for row in clan_list[1:])
 
-
     def dict_sum(self):
         """
         Deprecated. Use list_sum() instead. It's faster.
@@ -133,10 +133,22 @@ class Clan:
         clan_dict = self.dict_lookup()
         return sum(members['exp'] for members in clan_dict.values())
 
+
 if __name__ == '__main__':
-    clan = Clan("Atlantis", set_exp=True)  # Create Clan with the name "Atlantis"
-    print(clan.member['NRiver'])  # Info from member "NRiver"
-    print(clan.exp)  # Total Exp of the clan
-    print(clan.avg_exp)  # Average Clan Exp per Member of the clan
-    print(clan.name)  # Clan Name as passed when creating object Clan
-    print(clan.count)  #  Number of members in clan
+    # Create Clan with the name "Atlantis"
+    clan = Clan("Atlantis", set_exp=True)
+
+    # Info from member "NRiver"
+    print(clan.member['NRiver'])
+
+    # Total Exp of the clan
+    print(clan.exp)
+
+    # Average Clan Exp per Member of the clan
+    print(clan.avg_exp)
+
+    # Clan Name as passed when creating object Clan
+    print(clan.name)
+
+    # Number of members in clan
+    print(clan.count)
