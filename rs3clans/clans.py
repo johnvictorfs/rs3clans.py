@@ -5,7 +5,17 @@ import urllib.request
 
 
 class ClanNotFoundError(Exception):
-    
+    """
+    Error exception to be called when a clan is not found when trying to read the clan's URL using Rs3's Official API.
+
+    Correct error handling when reading a clan:
+
+    >>> try:
+            clan_name = "=nfnewweunfiwnfskdnfjnwui"
+            clan = rs3clans.Clan("name=clan_name")
+        except rs3clans.ClanNotFoundError:
+            pass  # Handle error here
+    """
     def __init__(self, value):
         self.value = value
  
@@ -120,7 +130,6 @@ class Clan:
         """
         clan_dict = self.dict_lookup()
         return sum(members['exp'] for members in clan_dict.values())
-
 
 if __name__ == '__main__':
     clan = Clan("Atlantis", set_exp=True)  # Create Clan with the name "Atlantis"
