@@ -61,7 +61,7 @@ class Clan:
             self.member = self.dict_lookup()
             self.count = len(self.member)
         if set_exp is True and set_dict is True:
-            self.avg_exp = self.exp/self.count
+            self.avg_exp = self.exp / self.count
 
     def list_lookup(self):
         """

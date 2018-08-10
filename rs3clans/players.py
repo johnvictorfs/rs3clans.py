@@ -17,7 +17,7 @@ class Player:
             self.name = self.metrics_info['name']
             self.exp = self.metrics_info['totalxp']
             self.combat_level = self.metrics_info['combatlevel']
-        
+
         self.info = self.dict_info()
         self.suffix = self.info['isSuffix']
         self.title = self.info['title']
@@ -26,10 +26,9 @@ class Player:
         except KeyError:
             self.clan = None
 
-
     def raw_info(self):
         info_url = (f"http://services.runescape.com/m=website-data/playerDetails.ws?names=%5B%22{self.name},"
-               f"%22%5D&callback=jQuery000000000000000_0000000000&_=0")
+                    f"%22%5D&callback=jQuery000000000000000_0000000000&_=0")
         client = urllib.request.urlopen(info_url)
         return str(client.read())
 
@@ -78,10 +77,23 @@ class Player:
 
 
 if __name__ == '__main__':
-    player = Player("nriver")  # Creating Player with the name "NRiver"
-    print(player.name)  # Player name (Actual case-sensitive name if Runemetrics profile isn't private, otherwise it will be as passed)
-    print(player.info)  # Player info
-    print(player.clan)  # Player clan
-    print(player.title)  # Player title
-    print(player.suffix)  # If the player's title is a suffix or not
-    print(player.exp)  # Prints the total player exp (if his Runemetrics profile is private it will output 0)
+    # Creating Player with the name "NRiver"
+    player = Player("nriver")
+
+    # Player name (Actual case-sensitive name if Runemetrics profile isn't private, otherwise it will be as passed)
+    print(player.name)
+
+    # Player info
+    print(player.info)
+
+    # Player clan
+    print(player.clan)
+
+    # Player title
+    print(player.title)
+
+    # If the player's title is a suffix or not
+    print(player.suffix)
+
+    # Prints the total player exp (if his Runemetrics profile is private it will output 0)
+    print(player.exp)
