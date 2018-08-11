@@ -9,6 +9,7 @@ class Player:
         self.name = name
         self.exp = 0
         self.combat_level = 0
+
         # If user's runemetrics profile is private, self.name will be the same as passed when creating object.
         # Otherwise it will get the correct case-sensitive name from his runemetrics profile.
         # Some other info like Total exp and Combat level will be created as well.
@@ -65,12 +66,15 @@ class Player:
         return info_dict
 
     def runemetrics_info(self):
-        info_url = (f"https://apps.runescape.com/runemetrics/profile/profile?user={self.name}&activities=0")
+        user_name = self.name.replace(' ', '%20')
+        info_url = (f"https://apps.runescape.com/runemetrics/profile/profile?user={user_name}&activities=0")
         client = urllib.request.urlopen(info_url)
         info = client.read()
         json_info = json.loads(info)
         try:
             if json_info['error'] == 'PROFILE_PRIVATE':
+                return False
+            if json_info['error'] == 'NO_PROFILE':
                 return False
         except KeyError:
             return json_info

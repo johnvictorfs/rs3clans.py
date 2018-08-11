@@ -13,10 +13,10 @@ if __name__ == '__main__':
     # Prints the player name, real case-sensitive name if the user has his Runemetrics profile not Private, otherwise as passed when setting oject
     print("Player Name:", player.name)
 
-    # Prints some player info in Dictionary format  
-    print("Player Info:", player.info) 
+    # Prints some player info in Dictionary format
+    print("Player Info:", player.info)
 
-    # Printing "player"'s Clan 
+    # Printing "player"'s Clan
     print("Player Clan:", player.clan)
 
     # Printing player's total EXP (If his Runemetrics profile is private, value will always be 0)
