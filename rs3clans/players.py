@@ -9,16 +9,17 @@ class Player:
         self.name = name
         self.exp = 0
         self.combat_level = 0
+        self.total_level = 0
 
         # If user's runemetrics profile is private, self.name will be the same as passed when creating object.
         # Otherwise it will get the correct case-sensitive name from his runemetrics profile.
-        # Some other info like Total exp and Combat level will be created as well.
+        # Some other info like Total exp, Combat level and Total level will be created as well.
         if self.runemetrics_info():
             self.metrics_info = self.runemetrics_info()
             self.name = self.metrics_info['name']
             self.exp = self.metrics_info['totalxp']
             self.combat_level = self.metrics_info['combatlevel']
-
+            self.total_level = self.metrics_info['totalskill']
         self.info = self.dict_info()
         self.suffix = self.info['isSuffix']
         self.title = self.info['title']
@@ -82,7 +83,7 @@ class Player:
 
 if __name__ == '__main__':
     # Creating Player with the name "NRiver"
-    player = Player("nriver")
+    player = Player("califa")
 
     # Player name (Actual case-sensitive name if Runemetrics profile isn't private, otherwise it will be as passed)
     print(player.name)
@@ -101,3 +102,9 @@ if __name__ == '__main__':
 
     # Prints the total player exp (if his Runemetrics profile is private it will output 0)
     print(player.exp)
+
+    # Prints the Combat level of player (if his Runemetrics profile is private it will output 0)
+    print(player.combat_level)
+
+    # Prints the Total level of player (if his Runemetrics profile is private it will output 0)
+    print(player.total_level)
