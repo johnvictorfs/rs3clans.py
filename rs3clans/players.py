@@ -29,7 +29,7 @@ class Player:
             self.clan = None
 
     def raw_info(self):
-        info_url = (f"http://services.runescape.com/m=website-data/playerDetails.ws?names=%5B%22{self.name},"
+        info_url = (f"http://services.runescape.com/m=website-data/playerDetails.ws?names=%5B%22{self.name}"
                     f"%22%5D&callback=jQuery000000000000000_0000000000&_=0")
         client = urllib.request.urlopen(info_url)
         return str(client.read())
@@ -63,7 +63,7 @@ class Player:
                 break
         info_list = ''.join(info_list)
         info_dict = json.loads(info_list)
-        info_dict['name'] = info_dict['name'].replace(',', '')
+        info_dict['name'] = info_dict['name']
         return info_dict
 
     def runemetrics_info(self):
@@ -82,8 +82,8 @@ class Player:
 
 
 if __name__ == '__main__':
-    # Creating Player with the name "NRiver"
-    player = Player("califa")
+    # Creating Player with the name "nriver"
+    player = Player("nriver")
 
     # Player name (Actual case-sensitive name if Runemetrics profile isn't private, otherwise it will be as passed)
     print(player.name)
