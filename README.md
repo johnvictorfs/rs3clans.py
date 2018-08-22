@@ -1,7 +1,7 @@
 # rs3clans.py
 A Python 3 module wrapper for RuneScape 3 Clan's API
 
-Current Version: 0.4.7
+Current Version: 0.4.8
 
 ***
 

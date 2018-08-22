@@ -78,9 +78,15 @@ class Clan:
             read_url = urllib.request.urlopen(clan_url)
         except urllib.error.URLError:
             raise ClanNotFoundError(f"Couldn't connect to clan: {self.name}")
-
         # errors="replace" is for names that contains spaces, will replace with "�"
-        return list(csv.reader(codecs.iterdecode(read_url, encoding='utf-8', errors="replace")))
+        clan_list = list(csv.reader(codecs.iterdecode(read_url, encoding='utf-8', errors="replace")))
+        if clan_list[0][0] != "Clanmate":
+            raise ClanNotFoundError(f"Couldn't find clan: {self.name}")
+            return 1
+        else:
+            for row in clan_list:
+                row[0] = row[0].replace("�", " ")
+            return clan_list
 
     def dict_lookup(self, rank_key="rank", exp_key="exp"):
         """
@@ -91,22 +97,12 @@ class Clan:
 
         It's used for making self.member dictionary when set_dict argument is passed as true when creating a Clan object.
         """
-        clan_url = f'http://services.runescape.com/m=clan-hiscores/members_lite.ws?clanName={self.name}'
-        try:
-            read_url = urllib.request.urlopen(clan_url)
-        except urllib.error.URLError:
-            raise ClanNotFoundError(f"Couldn't connect to clan: {self.name}")
-        # errors="replace" is for names that contains spaces, will replace with "�"
-        clan_list = list(csv.reader(codecs.iterdecode(
-            read_url, encoding='utf-8', errors="replace")))
-        if clan_list[0][0] != "Clanmate":
-            raise ClanNotFoundError(f"Couldn't find clan: {self.name}")
-            return 1
+        clan_list = self.list_lookup()
         clan_dict = {}
 
         for row in clan_list[1:]:
             user_rank = row[1]
-            username = row[0].replace("�", " ")
+            username = row[0]
             user_exp = int(row[2])
 
             clan_dict[username] = {
@@ -121,9 +117,6 @@ class Clan:
         It's used for making self.exp when set_exp argument is passed as true when creating a Clan object.
         """
         clan_list = self.list_lookup()
-        if clan_list[0][0] != "Clanmate":
-            raise ClanNotFoundError(f"Couldn't find clan: {self.name}")
-            return 1
         return sum(int(row[2]) for row in clan_list[1:])
 
     def dict_sum(self):
@@ -138,7 +131,7 @@ if __name__ == '__main__':
     # Create Clan with the name "Atlantis"
     clan = Clan("Atlantis", set_exp=True)
 
-    # Info from member "NRiver"
+    # Info from member "NRiver" (case-sensitive)
     print(clan.member['NRiver'])
 
     # Total Exp of the clan
