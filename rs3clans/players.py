@@ -7,9 +7,9 @@ class Player:
 
     def __init__(self, name):
         self.name = name
-        self.exp = 0
-        self.combat_level = 0
-        self.total_level = 0
+        self.exp = None
+        self.combat_level = None
+        self.total_level = None
         self.private_profile = True
 
         # If user's runemetrics profile is private, self.name will be the same as passed when creating object.
