@@ -51,6 +51,7 @@ if __name__ == '__main__':
     except rs3.ClanNotFoundError:
         # If this exception runs, the player is for sure not in a clan.
         # This is because the player's clan info can be set even if his runemetrics profile is private.
+        # This only gets caught if the player exists in the first place.
         print(f"Player '{player.name}' is not in a clan.")
 
     try:
@@ -64,8 +65,5 @@ if __name__ == '__main__':
             # A profile COULD be found for the name passed, but it's private, this means his name has to be passed on case-sensitively.
             print(f"Player '{player.name}' has a private profile. Pass its name case-sensitively to get clan info.")
         else:
-            # If for some reason you get to this point, it's because something went wrong when accessing Runescape's API,
-            # because if the player does not exist, then you would've been stopped at the rs3.ClanNotFoundError exception.
-            #
-            # Either that or you've been using 'pass' a little too much on your exception handling. :P
+            # If nothing else, then the player must not exist at all.
             print(f"Player '{player.name}' does not exist.")
