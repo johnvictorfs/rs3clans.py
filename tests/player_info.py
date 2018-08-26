@@ -5,10 +5,10 @@ import rs3clans as rs3
 # Some simple tests
 if __name__ == '__main__':
     # Creating Player "player" passing its name as "nriver"
-    player = rs3.Player("nriver")
+    player = rs3.Player(name="nriver")
 
     # Creating Clan "clan" passing its name as the clan of "player"
-    clan = rs3.Clan(player.clan, set_exp=True)
+    clan = rs3.Clan(name=player.clan, set_exp=True)
 
     # Prints the player name, real case-sensitive name if the user has his Runemetrics profile not Private, otherwise as passed when setting oject
     print(f"Player Name: {player.name}")
@@ -42,3 +42,30 @@ if __name__ == '__main__':
         clan = rs3.Clan("adnygydbydby2bdyb28123")
     except rs3.ClanNotFoundError:
         print("A wild exception flew by.")
+
+    # Examples of handling creating a Clan object from player profile if its runemetrics profile is private:
+    player = rs3.Player(name="nriver")
+
+    try:
+        clan = rs3.Clan(name=player.clan)
+    except rs3.ClanNotFoundError:
+        # If this exception runs, the player is for sure not in a clan.
+        # This is because the player's clan info can be set even if his runemetrics profile is private.
+        print(f"Player '{player.name}' is not in a clan.")
+
+    try:
+        player_clan_info = clan.member[player.name]
+        print(f"Clan info of '{player.name}': {player_clan_info}")
+    except KeyError:
+        # If this exception runs, the player IS in a clan, but since his profile is private, his case-sensitive name couldn't be set.
+        # So it's still possible to get its clan info, but his name has to be passed case-sensitively
+        # (name="NRiver" instead of name="nriver") for example.
+        if player.private_profile:
+            # A profile COULD be found for the name passed, but it's private, this means his name has to be passed on case-sensitively.
+            print(f"Player '{player.name}' has a private profile. Pass its name case-sensitively to get clan info.")
+        else:
+            # If for some reason you get to this point, it's because something went wrong when accessing Runescape's API,
+            # because if the player does not exist, then you would've been stopped at the rs3.ClanNotFoundError exception.
+            #
+            # Either that or you've been using 'pass' a little too much on your exception handling. :P
+            print(f"Player '{player.name}' does not exist.")

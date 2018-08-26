@@ -1,7 +1,6 @@
 # Standard Imports
 import csv
-import codecs
-import urllib.request
+import requests
 
 
 class ClanNotFoundError(Exception):
@@ -12,10 +11,10 @@ class ClanNotFoundError(Exception):
 
     >>> import rs3clans
     >>> try:
-            clan_name = "=nfnewweunfiwnfskdnfjnwui"  # Invalid clan name
-            clan = rs3clans.Clan("name=clan_name")
-        except rs3clans.ClanNotFoundError:
-            print("Exception encountered!")  # Handle error here
+    ...     clan_name = "=nfnewweunfiwnfskdnfjnwui"  # Invalid clan name
+    ...     clan = rs3clans.Clan("name=clan_name")
+    ... except rs3clans.ClanNotFoundError:
+    ...     print("Exception encountered!")  # Handle error here
     Exception encountered!
     """
 
@@ -74,19 +73,11 @@ class Clan:
         Look at dict_lookup() and self.member for info from specific members of the clan.
         """
         clan_url = f'http://services.runescape.com/m=clan-hiscores/members_lite.ws?clanName={self.name}'
-        try:
-            read_url = urllib.request.urlopen(clan_url)
-        except urllib.error.URLError:
-            raise ClanNotFoundError(f"Couldn't connect to clan: {self.name}")
-        # errors="replace" is for names that contains spaces, will replace with "�"
-        clan_list = list(csv.reader(codecs.iterdecode(read_url, encoding='utf-8', errors="replace")))
-        if clan_list[0][0] != "Clanmate":
-            raise ClanNotFoundError(f"Couldn't find clan: {self.name}")
-            return 1
-        else:
-            for row in clan_list:
-                row[0] = row[0].replace("�", " ")
-            return clan_list
+
+        with requests.Session() as session:
+            download = session.get(clan_url)
+            decoded = download.content.decode('windows-1252')
+            return list(csv.reader(decoded.splitlines(), delimiter=','))
 
     def dict_lookup(self, rank_key="rank", exp_key="exp"):
         """

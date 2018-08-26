@@ -1,3 +1,5 @@
 .vscode/settings.json
 __pycache__/rs3clans.cpython-35.pyc
 .pypirc
+local
+__pycache__
