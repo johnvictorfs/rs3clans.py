@@ -11,6 +11,7 @@ class Player:
         self.combat_level = None
         self.total_level = None
         self.private_profile = True
+        self.exists = True
 
         # If user's runemetrics profile is private, self.name will be the same as passed when creating object.
         # Otherwise it will get the correct case-sensitive name from his runemetrics profile.
@@ -79,6 +80,7 @@ class Player:
                 return False
             if json_info['error'] == 'NO_PROFILE':
                 self.private_profile = False
+                self.exists = False
                 return False
         except KeyError:
             self.private_profile = False

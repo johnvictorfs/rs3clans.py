@@ -9,7 +9,7 @@ REQUIRED = [
     'requests>=2.19.1'
 ]
 REQUIRES_PYTHON = '>=3.6.0'
-VERSION = '0.5.2'
+VERSION = '0.5.3'
 
 
 with open("README.md", "r") as fh:

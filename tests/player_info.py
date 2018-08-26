@@ -46,24 +46,25 @@ if __name__ == '__main__':
     # Examples of handling creating a Clan object from player profile if its runemetrics profile is private:
     player = rs3.Player(name="nriver")
 
-    try:
-        clan = rs3.Clan(name=player.clan)
-    except rs3.ClanNotFoundError:
-        # If this exception runs, the player is for sure not in a clan.
-        # This is because the player's clan info can be set even if his runemetrics profile is private.
-        # This only gets caught if the player exists in the first place.
-        print(f"Player '{player.name}' is not in a clan.")
+    # Proceed only if player actually exists
+    if not player.exists:
+        print(f"Player {player.name} does not exist.")
+    else:
+        try:
+            clan = rs3.Clan(name=player.clan)
+        except rs3.ClanNotFoundError:
+            # If this exception runs, the player is for sure not in a clan.
+            # This is because the player's clan info can be set even if his runemetrics profile is private.
+            # This only gets caught if the player exists in the first place.
+            print(f"Player '{player.name}' is not in a clan.")
 
-    try:
-        player_clan_info = clan.member[player.name]
-        print(f"Clan info of '{player.name}': {player_clan_info}")
-    except KeyError:
-        # If this exception runs, the player IS in a clan, but since his profile is private, his case-sensitive name couldn't be set.
-        # So it's still possible to get its clan info, but his name has to be passed case-sensitively
-        # (name="NRiver" instead of name="nriver") for example.
-        if player.private_profile:
-            # A profile COULD be found for the name passed, but it's private, this means his name has to be passed on case-sensitively.
-            print(f"Player '{player.name}' has a private profile. Pass its name case-sensitively to get clan info.")
-        else:
-            # If nothing else, then the player must not exist at all.
-            print(f"Player '{player.name}' does not exist.")
+        try:
+            player_clan_info = clan.member[player.name]
+            print(f"Clan info of '{player.name}': {player_clan_info}")
+        except KeyError:
+            # If this exception runs, the player IS in a clan, but since his profile is private, his case-sensitive name couldn't be set.
+            # So it's still possible to get its clan info, but his name has to be passed case-sensitively
+            # (name="NRiver" instead of name="nriver") for example.
+            if player.private_profile:
+                # A profile COULD be found for the name passed, but it's private, this means his name has to be passed on case-sensitively.
+                print(f"Player '{player.name}' has a private profile. Pass its name case-sensitively to get clan info.")
