@@ -15,7 +15,7 @@ class ClanNotFoundError(Exception):
         ... except rs3clans.ClanNotFoundError:
         ...     print("Exception encountered!")
         ...
-        ... 'Exception encountered!'
+        'Exception encountered!'
     """
 
     def __init__(self, value):
@@ -30,8 +30,6 @@ class Clan:
 
     Most of Runescape 3's API can be accessed at: http://runescape.wikia.com/wiki/Application_programming_interface
 
-    Most usage of this class will come from attributes or the method self.dict_lookup().
-
     ...
 
     Parameters
@@ -45,7 +43,6 @@ class Clan:
 
     Attributes
     ----------
-
     name : str
         The name of the clan. Set when creating object.
     exp : int or None

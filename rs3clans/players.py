@@ -8,31 +8,28 @@ class Player:
 
     Most of Runescape 3's API can be accessed at: http://runescape.wikia.com/wiki/Application_programming_interface
 
-    Most if not all regular usage of the Player class will be done with attributes and not methods.
-    Most methods here are mostly used for setting those attributes. self._dict_info() can be useful as well.
-
     ...
 
     Parameters:
-        name : str
-            Name of the Player, gets set to case-sensitive name later if his RuneMetrics profile is
-            not private. If you're also working with clans, the player's RuneMetrics profile is private, his name should be
-            passed case-sensitively. Otherwise some clan attributes will not be available.
+    name : str
+        Name of the Player, gets set to case-sensitive name later if his RuneMetrics profile is
+        not private. If you're also working with clans, the player's RuneMetrics profile is private, his name should be
+        passed case-sensitively. Otherwise some clan attributes will not be available.
 
     Attributes:
     ----------
-        name : str
-            Name of the Player, gets set to case-sensitive name later if his RuneMetrics profile is not private.
-        exp : int or None
-            Total Exp of the player, or None if private_profile is True.
-        combat_level : int or None
-            Total Combat Level of the player, or None if private_profile is True.
-        total_level : int or None
-            Total Skill Level of the player, or None if private_profile is True.
-        private_profile : bool
-            If the player has a private RuneMetrics profile or not.
-        exists : bool
-            If the player exists or not.
+    name : str
+        Name of the Player, gets set to case-sensitive name later if his RuneMetrics profile is not private.
+    exp : int or None
+        Total Exp of the player, or None if private_profile is True.
+    combat_level : int or None
+        Total Combat Level of the player, or None if private_profile is True.
+    total_level : int or None
+        Total Skill Level of the player, or None if private_profile is True.
+    private_profile : bool
+        If the player has a private RuneMetrics profile or not.
+    exists : bool
+        If the player exists or not.
     """
 
     def __init__(self, name: str):
@@ -95,7 +92,6 @@ class Player:
                 ... 'clan': 'Atlantis',
                 ... 'title': 'the Liberator'
                 ... }
-                ...
             is_suffix : bool
                 If the player's title is a Suffix or not
             recruiting : bool

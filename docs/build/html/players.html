@@ -38,21 +38,14 @@
 <em class="property">class </em><code class="descclassname">players.</code><code class="descname">Player</code><span class="sig-paren">(</span><em>name: str</em><span class="sig-paren">)</span><a class="headerlink" href="#players.Player" title="Permalink to this definition">¶</a></dt>
 <dd><p>Class with attributes of a Runescape Player using Jagex’s RS3 API</p>
 <p>Most of Runescape 3’s API can be accessed at: <a class="reference external" href="http://runescape.wikia.com/wiki/Application_programming_interface">http://runescape.wikia.com/wiki/Application_programming_interface</a></p>
-<p>Most if not all regular usage of the Player class will be done with attributes and not methods.
-Most methods here are mostly used for setting those attributes. self._dict_info() can be useful as well.</p>
 <p>…</p>
-<dl class="docutils">
-<dt>Parameters:</dt>
-<dd><dl class="first last docutils">
-<dt>name <span class="classifier-delimiter">:</span> <span class="classifier">str</span></dt>
-<dd>Name of the Player, gets set to case-sensitive name later if his RuneMetrics profile is
-not private. If you’re also working with clans, the player’s RuneMetrics profile is private, his name should be
-passed case-sensitively. Otherwise some clan attributes will not be available.</dd>
-</dl>
-</dd>
-</dl>
+<p>Parameters:
+name : str</p>
 <blockquote>
-<div><dl class="docutils">
+<div>Name of the Player, gets set to case-sensitive name later if his RuneMetrics profile is
+not private. If you’re also working with clans, the player’s RuneMetrics profile is private, his name should be
+passed case-sensitively. Otherwise some clan attributes will not be available.</div></blockquote>
+<dl class="docutils">
 <dt>name <span class="classifier-delimiter">:</span> <span class="classifier">str</span></dt>
 <dd>Name of the Player, gets set to case-sensitive name later if his RuneMetrics profile is not private.</dd>
 <dt>exp <span class="classifier-delimiter">:</span> <span class="classifier">int or None</span></dt>
@@ -66,7 +59,6 @@ passed case-sensitively. Otherwise some clan attributes will not be available.</
 <dt>exists <span class="classifier-delimiter">:</span> <span class="classifier">bool</span></dt>
 <dd>If the player exists or not.</dd>
 </dl>
-</div></blockquote>
 <p class="rubric">Methods</p>
 <table border="1" class="longtable docutils">
 <colgroup>
