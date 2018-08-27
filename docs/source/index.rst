@@ -6,6 +6,10 @@
 rs3clans.py Documentation
 =======================================
 
+A Python 3 module wrapper for RuneScape 3 Clan's API
+
+.. _Github: https://github.com/johnvictorfs/rs3clans.py
+
 Requirements:
     * requests>=2.19.1
 
@@ -16,9 +20,4 @@ Requirements:
    clans
    players
 
-Indices and tables
-==================
-
-* :ref:`genindex`
-* :ref:`modindex`
 * :ref:`search`
