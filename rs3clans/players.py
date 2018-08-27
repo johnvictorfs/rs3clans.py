@@ -4,8 +4,36 @@ import json
 
 
 class Player:
+    """Class with attributes of a Runescape Player using Jagex's RS3 API
 
-    def __init__(self, name):
+    Most of Runescape 3's API can be accessed at: http://runescape.wikia.com/wiki/Application_programming_interface
+
+    Most if not all regular usage of the Player class will be done with attributes and not methods.
+    Most methods here are mostly used for setting those attributes. self._dict_info() can be useful as well.
+
+    ...
+
+    Parameters: name : str Name of the Player, gets set to case-sensitive name later if his RuneMetrics profile is
+    not private. If you're also working with clans, the player's RuneMetrics profile is private, his name should be
+    passed case-sensitively. Otherwise some clan attributes will not be available.
+
+    Attributes:
+    ----------
+        name : str
+            Name of the Player, gets set to case-sensitive name later if his RuneMetrics profile is not private.
+        exp : int or None
+            Total Exp of the player, or None if private_profile is True.
+        combat_level : int or None
+            Total Combat Level of the player, or None if private_profile is True.
+        total_level : int or None
+            Total Skill Level of the player, or None if private_profile is True.
+        private_profile : bool
+            If the player has a private RuneMetrics profile or not.
+        exists : bool
+            If the player exists or not.
+    """
+    def __init__(self, name: str):
+
         self.name = name
         self.exp = None
         self.combat_level = None
@@ -22,41 +50,60 @@ class Player:
             self.exp = self.metrics_info['totalxp']
             self.combat_level = self.metrics_info['combatlevel']
             self.total_level = self.metrics_info['totalskill']
-        self.info = self.dict_info()
-        self.suffix = self.info['isSuffix']
+        self.info = self._dict_info()
+        self.suffix = self.info['is_suffix']
         self.title = self.info['title']
         try:
             self.clan = self.info['clan']
         except KeyError:
             self.clan = None
 
-    def raw_info(self):
+    def _raw_info(self):
+        """
+        Gets JsonP information on a player, in string format.
+
+        Returns
+        ------
+        str
+            JsonP information on player, converted to string.
+
+        ------
+        .. note:: Has to be formatted correctly into Json or other formats to be worked with properly first.
+        """
         info_url = (f"http://services.runescape.com/m=website-data/playerDetails.ws?names=%5B%22{self.name}"
                     f"%22%5D&callback=jQuery000000000000000_0000000000&_=0")
         client = urllib.request.urlopen(info_url)
         return str(client.read())
 
-    def dict_info(self):
+    def _dict_info(self):
         """
-        Gets the raw string info from self.raw_info() and formats it into Dictionary format as follows:
+        Gets the raw string info from self._raw_info() and formats it into Dictionary format.:
+        Used to set self.info.
 
-        self.info = {
-            'isSuffix': True,
-            'recruiting': True,
-            'name': 'nriver',
-            'clan': 'Atlantis',
-            'title': 'the Liberator'
-        }
+        Returns
+        ------
+        dict
+            Dictionary is formatted as follows:
+                >>> player_info = {
+                ... 'is_suffix': True,
+                ... 'recruiting': True,
+                ... 'name': 'nriver',
+                ... 'clan': 'Atlantis',
+                ... 'title': 'the Liberator'
+                ... }
 
-        isSuffix (bool): If the player's title is a Suffix or not
-        recruiting (bool): If the player's clan is set as Recruiting or not
-        name (str): The player's name, passed as is when creating object Player
-        clan (str): The player's clan name
-        title (str): The player's current title
-
-        Used to make self.info.
+            is_suffix : bool
+                If the player's title is a Suffix or not
+            recruiting : bool
+                If the player's clan is set as Recruiting or not
+            name : str
+                The player's name, passed as is when creating object Player
+            clan : str
+                The player's clan name
+            title : str
+                The player's current title
         """
-        str_info = self.raw_info()
+        str_info = self._raw_info()
         info_list = []
         # str_info[36] = Start of json format in URL '{'
         for letter in str_info[36:]:
@@ -65,12 +112,22 @@ class Player:
                 break
         info_list = ''.join(info_list)
         info_dict = json.loads(info_list)
-        info_dict['name'] = info_dict['name']
+        info_dict['is_suffix'] = info_dict['isSuffix']
+        del info_dict['isSuffix']
         return info_dict
 
     def runemetrics_info(self):
+        """
+        Gets player info from Runemetrics' API.
+        Sets self.private_profile to True if his Runemetrics profile is found to be Private.
+
+        Returns
+        ------
+        dict or bool
+            Runemetrics player info if the player profile is public, or False if it is Private.
+        """
         user_name = self.name.replace(' ', '%20')
-        info_url = (f"https://apps.runescape.com/runemetrics/profile/profile?user={user_name}&activities=0")
+        info_url = f"https://apps.runescape.com/runemetrics/profile/profile?user={user_name}&activities=0"
         client = urllib.request.urlopen(info_url)
         info = client.read()
         json_info = json.loads(info)

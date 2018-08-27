@@ -1,0 +1,135 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>RuneScape Player functionalities &#8212; rs3clans.py 0.5.4 documentation</title>
+    <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+   
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <div class="section" id="module-players">
+<span id="runescape-player-functionalities"></span><h1>RuneScape Player functionalities<a class="headerlink" href="#module-players" title="Permalink to this headline">¶</a></h1>
+<dl class="class">
+<dt id="players.Player">
+<em class="property">class </em><code class="descclassname">players.</code><code class="descname">Player</code><span class="sig-paren">(</span><em>name: str</em><span class="sig-paren">)</span><a class="headerlink" href="#players.Player" title="Permalink to this definition">¶</a></dt>
+<dd><p>Class with attributes of a Runescape Player using Jagex’s RS3 API</p>
+<p>Most of Runescape 3’s API can be accessed at: <a class="reference external" href="http://runescape.wikia.com/wiki/Application_programming_interface">http://runescape.wikia.com/wiki/Application_programming_interface</a></p>
+<p>Most if not all regular usage of the Player class will be done with attributes and not methods.
+Most methods here are mostly used for setting those attributes. self._dict_info() can be useful as well.</p>
+<p>…</p>
+<p>Parameters: name : str Name of the Player, gets set to case-sensitive name later if his RuneMetrics profile is
+not private. If you’re also working with clans, the player’s RuneMetrics profile is private, his name should be
+passed case-sensitively. Otherwise some clan attributes will not be available.</p>
+<blockquote>
+<div><dl class="docutils">
+<dt>name <span class="classifier-delimiter">:</span> <span class="classifier">str</span></dt>
+<dd>Name of the Player, gets set to case-sensitive name later if his RuneMetrics profile is not private.</dd>
+<dt>exp <span class="classifier-delimiter">:</span> <span class="classifier">int or None</span></dt>
+<dd>Total Exp of the player, or None if private_profile is True.</dd>
+<dt>combat_level <span class="classifier-delimiter">:</span> <span class="classifier">int or None</span></dt>
+<dd>Total Combat Level of the player, or None if private_profile is True.</dd>
+<dt>total_level <span class="classifier-delimiter">:</span> <span class="classifier">int or None</span></dt>
+<dd>Total Skill Level of the player, or None if private_profile is True.</dd>
+<dt>private_profile <span class="classifier-delimiter">:</span> <span class="classifier">bool</span></dt>
+<dd>If the player has a private RuneMetrics profile or not.</dd>
+<dt>exists <span class="classifier-delimiter">:</span> <span class="classifier">bool</span></dt>
+<dd>If the player exists or not.</dd>
+</dl>
+</div></blockquote>
+<dl class="method">
+<dt id="players.Player.runemetrics_info">
+<code class="descname">runemetrics_info</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#players.Player.runemetrics_info" title="Permalink to this definition">¶</a></dt>
+<dd><p>Gets player info from Runemetrics’ API.
+Sets self.private_profile to True if his Runemetrics profile is found to be Private.</p>
+<dl class="docutils">
+<dt>dict or bool</dt>
+<dd>Runemetrics player info if the player profile is public, or False if it is Private.</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="index.html">rs3clans.py</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="index.html">Documentation overview</a><ul>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    </div>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2018, John Victor.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.7.7</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.11</a>
+      
+      |
+      <a href="_sources/players.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

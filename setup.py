@@ -1,19 +1,26 @@
 import setuptools
 
+__author__ = None
+__version__ = None
+
+# Reading long description from README.md
+with open("README.md", "r") as fh:
+    long_description = fh.read()
+
+# Reading __version__ and __author__ from __init__.py
+with open("rs3clans/__init__.py") as f:
+    exec(f.read())
+
+AUTHOR = __author__
+VERSION = __version__
 NAME = 'rs3clans'
-AUTHOR = 'John Victor'
 EMAIL = 'johnvictorfs@gmail.com'
 DESCRIPTION = 'A Python 3 module wrapper for RuneScape 3 Clan\'s API'
 URL = 'https://github.com/johnvictorfs/rs3clans.py'
 REQUIRED = [
-    'requests>=2.19.1'
+    'requests>=2.19.1',
 ]
 REQUIRES_PYTHON = '>=3.6.0'
-VERSION = '0.5.3'
-
-
-with open("README.md", "r") as fh:
-    long_description = fh.read()
 
 setuptools.setup(
     name=NAME,
