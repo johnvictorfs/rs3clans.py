@@ -5,7 +5,6 @@ import json
 
 class Player:
     """Class with attributes of a Runescape Player using Jagex's RS3 API
-    .. highlight:: numpy
 
     Most of Runescape 3's API can be accessed at: http://runescape.wikia.com/wiki/Application_programming_interface
 
@@ -14,9 +13,11 @@ class Player:
 
     ...
 
-    Parameters: name : str Name of the Player, gets set to case-sensitive name later if his RuneMetrics profile is
-    not private. If you're also working with clans, the player's RuneMetrics profile is private, his name should be
-    passed case-sensitively. Otherwise some clan attributes will not be available.
+    Parameters:
+        name : str
+            Name of the Player, gets set to case-sensitive name later if his RuneMetrics profile is
+            not private. If you're also working with clans, the player's RuneMetrics profile is private, his name should be
+            passed case-sensitively. Otherwise some clan attributes will not be available.
 
     Attributes:
     ----------
@@ -33,6 +34,7 @@ class Player:
         exists : bool
             If the player exists or not.
     """
+
     def __init__(self, name: str):
 
         self.name = name
@@ -61,8 +63,6 @@ class Player:
 
     def _raw_info(self):
         """
-        .. highlight:: numpy
-
         Gets JsonP information on a player, in string format.
 
         Returns
@@ -122,8 +122,6 @@ class Player:
 
     def runemetrics_info(self):
         """
-        .. highlight:: numpy
-
         Gets player info from Runemetrics' API.
         Sets self.private_profile to True if his Runemetrics profile is found to be Private.
 

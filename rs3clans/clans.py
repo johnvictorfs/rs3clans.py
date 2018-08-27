@@ -15,7 +15,7 @@ class ClanNotFoundError(Exception):
         ... except rs3clans.ClanNotFoundError:
         ...     print("Exception encountered!")
         ...
-    Exception encountered!
+        ... 'Exception encountered!'
     """
 
     def __init__(self, value):
@@ -27,7 +27,6 @@ class ClanNotFoundError(Exception):
 
 class Clan:
     """Class with attributes of a Runescape Clan using Jagex's RS3 API
-    .. highlight:: numpy
 
     Most of Runescape 3's API can be accessed at: http://runescape.wikia.com/wiki/Application_programming_interface
 
@@ -74,6 +73,7 @@ class Clan:
     ClanNotFoundError
         If an invalid clan name is passed when creating object Clan.
     """
+
     def __init__(self, name, set_exp=False, set_dict=True):
         self.name = name
         self.exp = None
@@ -89,7 +89,6 @@ class Clan:
 
     def list_lookup(self):
         """
-        .. highlight:: numpy
 
         Used for getting all information available from a clan using Rs3's Clan API.
         Mainly used for calculating the total exp of a clan manually.
@@ -98,16 +97,11 @@ class Clan:
         --------
         list
             All players information from a clan in list format like so::
-            >>> clan_list = [
-            ... ['Clanmate', ' Clan Rank', ' Total XP', ' Kills'],
-            ... ['Pedim', 'Owner', '739711654', '2'],
-            ... ['Tusoroxo', 'Deputy Owner', '1132958333', '0'],
-            ... ]
-
-        See also:
-        --------
-        :func: `dict_lookup` : For dictionary formatted info from a clan.
-        :py:attr: `member` : For specific member info from a clan.
+                >>> clan_list = [
+                ... ['Clanmate', ' Clan Rank', ' Total XP', ' Kills'],
+                ... ['Pedim', 'Owner', '739711654', '2'],
+                ... ['Tusoroxo', 'Deputy Owner', '1132958333', '0'],
+                ... ]
         """
         clan_url = f'http://services.runescape.com/m=clan-hiscores/members_lite.ws?clanName={self.name}'
 
@@ -123,11 +117,10 @@ class Clan:
 
     def dict_lookup(self, rank_key="rank", exp_key="exp"):
         """
-        .. highlight:: numpy
 
         Used for getting all information available from a clan using Rs3's Clan API.
 
-        Contrary to :func: `list_lookup` it returns it as a Dictionary format instead.
+        Contrary to `list_lookup` it returns it as a Dictionary format instead.
         The dict format makes easier to find info specific to certain members of the Clan instead of looping over it.
 
         It's used for setting :py:attr: `member` when set_dict argument is passed as True when creating a Clan object.

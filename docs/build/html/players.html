@@ -15,7 +15,6 @@
     <script type="text/javascript" src="_static/doctools.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="prev" title="Clan functionalities" href="clans.html" />
    
   <link rel="stylesheet" href="_static/custom.css" type="text/css" />
   
@@ -37,15 +36,21 @@
 <dl class="class">
 <dt id="players.Player">
 <em class="property">class </em><code class="descclassname">players.</code><code class="descname">Player</code><span class="sig-paren">(</span><em>name: str</em><span class="sig-paren">)</span><a class="headerlink" href="#players.Player" title="Permalink to this definition">¶</a></dt>
-<dd><p>Class with attributes of a Runescape Player using Jagex’s RS3 API
-.. highlight:: numpy</p>
+<dd><p>Class with attributes of a Runescape Player using Jagex’s RS3 API</p>
 <p>Most of Runescape 3’s API can be accessed at: <a class="reference external" href="http://runescape.wikia.com/wiki/Application_programming_interface">http://runescape.wikia.com/wiki/Application_programming_interface</a></p>
 <p>Most if not all regular usage of the Player class will be done with attributes and not methods.
 Most methods here are mostly used for setting those attributes. self._dict_info() can be useful as well.</p>
 <p>…</p>
-<p>Parameters: name : str Name of the Player, gets set to case-sensitive name later if his RuneMetrics profile is
+<dl class="docutils">
+<dt>Parameters:</dt>
+<dd><dl class="first last docutils">
+<dt>name <span class="classifier-delimiter">:</span> <span class="classifier">str</span></dt>
+<dd>Name of the Player, gets set to case-sensitive name later if his RuneMetrics profile is
 not private. If you’re also working with clans, the player’s RuneMetrics profile is private, his name should be
-passed case-sensitively. Otherwise some clan attributes will not be available.</p>
+passed case-sensitively. Otherwise some clan attributes will not be available.</dd>
+</dl>
+</dd>
+</dl>
 <blockquote>
 <div><dl class="docutils">
 <dt>name <span class="classifier-delimiter">:</span> <span class="classifier">str</span></dt>
@@ -62,6 +67,18 @@ passed case-sensitively. Otherwise some clan attributes will not be available.</
 <dd>If the player exists or not.</dd>
 </dl>
 </div></blockquote>
+<p class="rubric">Methods</p>
+<table border="1" class="longtable docutils">
+<colgroup>
+<col width="10%" />
+<col width="90%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td><a class="reference internal" href="#players.Player.runemetrics_info" title="players.Player.runemetrics_info"><code class="xref py py-obj docutils literal notranslate"><span class="pre">runemetrics_info</span></code></a>()</td>
+<td>Gets player info from Runemetrics’ API.</td>
+</tr>
+</tbody>
+</table>
 <dl class="method">
 <dt id="players.Player.runemetrics_info">
 <code class="descname">runemetrics_info</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#players.Player.runemetrics_info" title="Permalink to this definition">¶</a></dt>
@@ -97,14 +114,15 @@ Sets self.private_profile to True if his Runemetrics profile is found to be Priv
 <p class="caption"><span class="caption-text">Contents:</span></p>
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="clans.html">Clan functionalities</a></li>
-<li class="toctree-l1 current"><a class="current reference internal" href="#">Player functionalities</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Player functionalities</a><ul class="simple">
+</ul>
+</li>
 </ul>
 
 <div class="relations">
 <h3>Related Topics</h3>
 <ul>
   <li><a href="index.html">Documentation overview</a><ul>
-      <li>Previous: <a href="clans.html" title="previous chapter">Clan functionalities</a></li>
   </ul></li>
 </ul>
 </div>
