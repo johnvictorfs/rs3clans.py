@@ -14,10 +14,11 @@ Requirements:
     * requests>=2.19.1
 
 .. toctree::
-   :maxdepth: 2
+   :maxdepth: 3
    :caption: Contents:
 
    clans
    players
+   examples
 
 * :ref:`search`

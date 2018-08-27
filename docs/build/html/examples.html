@@ -1,0 +1,222 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>Usage examples &#8212; rs3clans.py 0.5.5 documentation</title>
+    <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+   
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <div class="section" id="usage-examples">
+<h1>Usage examples<a class="headerlink" href="#usage-examples" title="Permalink to this headline">¶</a></h1>
+<ul class="simple">
+<li>Usage Examples:</li>
+</ul>
+<dl class="docutils">
+<dt>Importing::</dt>
+<dd><div class="first last highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">rs3clans</span> <span class="k">as</span> <span class="nn">rs3</span>
+</pre></div>
+</div>
+</dd>
+<dt>Creating object Player passing its name as “nriver”::</dt>
+<dd><div class="first last highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">player</span> <span class="o">=</span> <span class="n">rs3</span><span class="o">.</span><span class="n">Player</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s2">&quot;nriver&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd>
+<dt>Creating Clan “clan” passing its name as the clan of “player” with set_exp ::</dt>
+<dd><div class="first last highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">clan</span> <span class="o">=</span> <span class="n">rs3</span><span class="o">.</span><span class="n">Clan</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="n">player</span><span class="o">.</span><span class="n">clan</span><span class="p">,</span> <span class="n">set_exp</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd>
+<dt>Printing the player name, real case-sensitive name if the user has his Runemetrics profile not Private, otherwise as passed when creating object::</dt>
+<dd><div class="first last highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">f</span><span class="s2">&quot;Player Name: </span><span class="si">{player.name}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="go">Player Name: NRiver</span>
+</pre></div>
+</div>
+</dd>
+<dt>Printing some player info in Dictionary format::</dt>
+<dd><div class="first last highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">f</span><span class="s2">&quot;Player Info: </span><span class="si">{player.info}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="go">Player Info: {&#39;isSuffix&#39;: True, &#39;recruiting&#39;: True, &#39;name&#39;: &#39;NRiver&#39;, &#39;clan&#39;: &#39;Atlantis&#39;, &#39;title&#39;: &#39;the Liberator&#39;}</span>
+</pre></div>
+</div>
+</dd>
+<dt>Printing player’s clan name::</dt>
+<dd><div class="first last highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">f</span><span class="s2">&quot;Player Clan: </span><span class="si">{player.clan}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="go">Player Clan: Atlantis</span>
+</pre></div>
+</div>
+</dd>
+<dt>Printing player’s total Exp, or None if his Runemetrics profile is private::</dt>
+<dd><div class="first last highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">f</span><span class="s2">&quot;Player Total Exp: </span><span class="si">{player.exp}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="go">Player Total Exp: 1037291112</span>
+</pre></div>
+</div>
+</dd>
+<dt>Printing the total exp of clan::</dt>
+<dd><div class="first last highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">f</span><span class="s2">&quot;Clan Exp: </span><span class="si">{clan.exp}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="go">Clan Exp: 151349638333</span>
+</pre></div>
+</div>
+</dd>
+<dt>Printing info in Dictionary format of the clan’s member “Pedim” (requires case-sensitive name)::</dt>
+<dd><div class="first last highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">f</span><span class="s2">&quot;Clan info of &#39;Pedim&#39;: </span><span class="si">{clan.member[&#39;Pedim&#39;]}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="go">Clan info of &#39;Pedim&#39;: {&#39;rank&#39;: &#39;Owner&#39;, &#39;exp&#39;: 739711654}</span>
+</pre></div>
+</div>
+</dd>
+<dt>Printing the rank of member “Pedim” in his clan::</dt>
+<dd><div class="first last highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">f</span><span class="s2">&quot;Rank of &#39;Pedim&#39;: </span><span class="si">{clan.member[&#39;Pedim&#39;][&#39;rank&#39;]}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="go">Rank of &#39;Pedim&#39;: Owner</span>
+</pre></div>
+</div>
+</dd>
+<dt>Printing the total player count of clan::</dt>
+<dd><div class="first last highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">f</span><span class="s2">&quot;Player Count of clan: </span><span class="si">{clan.count}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="go">Player Count of clan: 499</span>
+</pre></div>
+</div>
+</dd>
+<dt>Printing the average clan exp per member of clan::</dt>
+<dd><div class="first last highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">f</span><span class="s2">&quot;Average Clan Exp per member: </span><span class="si">{clan.avg_exp}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="go">Average Clan Exp per member: 303305888.44288576</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+<ul class="simple">
+<li>Handling exceptions/errors:</li>
+</ul>
+<dl class="docutils">
+<dt>Dealing with non-existent clans::</dt>
+<dd><div class="first last highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="k">try</span><span class="p">:</span>
+<span class="gp">... </span>    <span class="n">clan</span> <span class="o">=</span> <span class="n">rs3</span><span class="o">.</span><span class="n">Clan</span><span class="p">(</span><span class="s2">&quot;adnygydbydby2bdyb28123&quot;</span><span class="p">)</span>
+<span class="gp">... </span><span class="k">except</span> <span class="n">rs3</span><span class="o">.</span><span class="n">ClanNotFoundError</span><span class="p">:</span>
+<span class="gp">... </span>    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;A wild exception flew by.&quot;</span><span class="p">)</span>
+<span class="go">A wild exception flew by.</span>
+</pre></div>
+</div>
+</dd>
+<dt>Dealing with non-existent players::</dt>
+<dd><div class="first last highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">player</span> <span class="o">=</span> <span class="n">rs3</span><span class="o">.</span><span class="n">Player</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s2">&quot;iub2323bf32ubfjsdbf8723bf23f&quot;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">if</span> <span class="ow">not</span> <span class="n">player</span><span class="o">.</span><span class="n">exists</span><span class="p">:</span>
+<span class="gp">... </span>    <span class="nb">print</span><span class="p">(</span><span class="n">f</span><span class="s2">&quot;Player &#39;</span><span class="si">{player.name}</span><span class="s2">&#39;&#39; does not exist.&quot;</span><span class="p">)</span>
+<span class="go">Player &#39;iub2323bf32ubfjsdbf8723bf23f&#39; does not exist.</span>
+</pre></div>
+</div>
+</dd>
+<dt>Getting information only if player exists::</dt>
+<dd><div class="first last highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">player</span> <span class="o">=</span> <span class="n">rs3</span><span class="o">.</span><span class="n">Player</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s2">&quot;nriver&quot;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">if</span> <span class="ow">not</span> <span class="n">player</span><span class="o">.</span><span class="n">exists</span><span class="p">:</span>
+<span class="gp">... </span>    <span class="nb">print</span><span class="p">(</span><span class="n">f</span><span class="s2">&quot;Player </span><span class="si">{player.name}</span><span class="s2"> does not exist.&quot;</span><span class="p">)</span>
+<span class="gp">... </span><span class="k">else</span><span class="p">:</span>
+<span class="gp">... </span>    <span class="k">try</span><span class="p">:</span>
+<span class="gp">... </span>        <span class="n">clan</span> <span class="o">=</span> <span class="n">rs3</span><span class="o">.</span><span class="n">Clan</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="n">player</span><span class="o">.</span><span class="n">clan</span><span class="p">)</span>
+<span class="gp">... </span>    <span class="k">except</span> <span class="n">rs3</span><span class="o">.</span><span class="n">ClanNotFoundError</span><span class="p">:</span>
+<span class="gp">... </span>        <span class="c1"># If this exception runs, the player is for sure not in a clan.</span>
+<span class="gp">... </span>        <span class="c1"># This is because the player&#39;s clan info can be set even if his runemetrics profile is private.</span>
+<span class="gp">... </span>        <span class="c1"># This only gets caught if the player exists in the first place.</span>
+<span class="gp">... </span>        <span class="nb">print</span><span class="p">(</span><span class="n">f</span><span class="s2">&quot;Player &#39;</span><span class="si">{player.name}</span><span class="s2">&#39; is not in a clan.&quot;</span><span class="p">)</span>
+<span class="gp">... </span>    <span class="k">try</span><span class="p">:</span>
+<span class="gp">... </span>        <span class="n">player_clan_info</span> <span class="o">=</span> <span class="n">clan</span><span class="o">.</span><span class="n">member</span><span class="p">[</span><span class="n">player</span><span class="o">.</span><span class="n">name</span><span class="p">]</span>
+<span class="gp">... </span>        <span class="nb">print</span><span class="p">(</span><span class="n">f</span><span class="s2">&quot;Clan info of &#39;</span><span class="si">{player.name}</span><span class="s2">&#39;: </span><span class="si">{player_clan_info}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="gp">... </span>    <span class="k">except</span> <span class="ne">KeyError</span><span class="p">:</span>
+<span class="gp">... </span>    <span class="c1"># If this exception runs, the player IS in a clan, but since his profile is private, his case-sensitive name couldn&#39;t be set.</span>
+<span class="gp">... </span>    <span class="c1"># So it&#39;s still possible to get its clan info, but his name has to be passed case-sensitively</span>
+<span class="gp">... </span>    <span class="c1"># (name=&quot;NRiver&quot; instead of name=&quot;nriver&quot;) for example.</span>
+<span class="gp">... </span>       <span class="k">if</span> <span class="n">player</span><span class="o">.</span><span class="n">private_profile</span><span class="p">:</span>
+<span class="gp">... </span>       <span class="c1"># A profile COULD be found for the name passed, but it&#39;s private, this means his name has to be passed on case-sensitively.</span>
+<span class="gp">... </span>       <span class="nb">print</span><span class="p">(</span><span class="n">f</span><span class="s2">&quot;Player &#39;</span><span class="si">{player.name}</span><span class="s2">&#39; has a private profile. Pass its name case-sensitively to get clan info.&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+</div>
+
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="index.html">rs3clans.py</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+<p class="caption"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="clans.html">Clan functionalities</a></li>
+<li class="toctree-l1"><a class="reference internal" href="players.html">Player functionalities</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Usage examples</a></li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="index.html">Documentation overview</a><ul>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    </div>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2018, John Victor.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.7.7</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.11</a>
+      
+      |
+      <a href="_sources/examples.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>
