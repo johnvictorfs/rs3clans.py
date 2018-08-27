@@ -73,6 +73,7 @@ class Player:
         ------
         .. note:: Has to be formatted correctly into Json or other formats to be worked with properly first.
         """
+
         info_url = (f"http://services.runescape.com/m=website-data/playerDetails.ws?names=%5B%22{self.name}"
                     f"%22%5D&callback=jQuery000000000000000_0000000000&_=0")
         client = urllib.request.urlopen(info_url)
