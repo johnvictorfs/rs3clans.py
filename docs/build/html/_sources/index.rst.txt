@@ -13,6 +13,8 @@ Requirements:
    :maxdepth: 2
    :caption: Contents:
 
+   clans
+   players
 
 Indices and tables
 ==================

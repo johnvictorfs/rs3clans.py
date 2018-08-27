@@ -1,4 +1,4 @@
-RuneScape Player functionalities
+rs3clans.py Player functionalities
 =======================================
 
 .. automodule:: players
