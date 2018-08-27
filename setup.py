@@ -42,8 +42,8 @@ setuptools.setup(
     packages=setuptools.find_packages(exclude=('tests',)),
     zip_safe=False,
     url=URL,
-    classifiers=(
+    classifiers=[
         "Programming Language :: Python :: 3.6",
         "Programming Language :: Python :: 3.7"
-    )
+    ]
 )
