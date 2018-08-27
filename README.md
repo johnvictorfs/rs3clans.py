@@ -1,29 +1,23 @@
 # rs3clans.py
+[![PyPI](https://img.shields.io/pypi/v/rs3clans.svg)](https://pypi.org/project/rs3clans/) [![PyPI - Python Version](https://img.shields.io/pypi/pyversions/rs3clans.svg)](https://pypi.org/project/rs3clans/)
+
 A Python 3 module wrapper for RuneScape 3 Clan's API
+
+***
+## Requirements:
+
+`Python>=3.6`
+`requests>=requests==2.19.1`
 
 ***
 
 ## Setup:
 
 ```bash
-python -m pip install rs3clans
+$ python3 -m pip install rs3clans
 ```
 
 ***
 
-### Examples:
-
-* Go into the examples file for examples on usage of the module.
-
-### Usage:
-
-* Import:
-
-```python3
-# I would personally recommend importing as a smaller name (e.g.: import rs3clans as rs3)
-import rs3clans
-```
-
-- Since i have rewritten the entire module, i still haven't remade the docs for it. Read the comments in the source code instead. There are a few examples of usage in it as well, just run it and have a look. Also look into the 'tests' folder for some examples. Trying to make time to write this :/ 
-
-- Either way it's not a very complex module, couple minutes should get you going.
+### Documentation (with examples of usage):
+[![Docs](https://readthedocs.org/projects/rs3clanspy/badge/?version=latest)](https://rs3clanspy.readthedocs.io/en/latest/?badge=latest)

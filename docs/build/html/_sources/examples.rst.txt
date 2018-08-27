@@ -1,7 +1,10 @@
-Usage examples
+Examples
 =======================================
 
-* Usage Examples:
+* Installing::
+    python3 -m pip install rs3clans
+
+* Usage:
 
 Importing::
     >>> import rs3clans as rs3
