@@ -38,7 +38,8 @@
 <dl class="class">
 <dt id="clans.Clan">
 <em class="property">class </em><code class="descclassname">clans.</code><code class="descname">Clan</code><span class="sig-paren">(</span><em>name</em>, <em>set_exp=False</em>, <em>set_dict=True</em><span class="sig-paren">)</span><a class="headerlink" href="#clans.Clan" title="Permalink to this definition">¶</a></dt>
-<dd><p>Class with attributes of a Runescape Clan using Jagex’s RS3 API</p>
+<dd><p>Class with attributes of a Runescape Clan using Jagex’s RS3 API
+.. highlight:: numpy</p>
 <p>Most of Runescape 3’s API can be accessed at: <a class="reference external" href="http://runescape.wikia.com/wiki/Application_programming_interface">http://runescape.wikia.com/wiki/Application_programming_interface</a></p>
 <p>Most usage of this class will come from attributes or the method self.dict_lookup().</p>
 <p>…</p>
@@ -56,19 +57,24 @@
 <dt>exp <span class="classifier-delimiter">:</span> <span class="classifier">int or None</span></dt>
 <dd>The total Exp of the clan, or None if argument set_exp is False (False by default).</dd>
 <dt>member <span class="classifier-delimiter">:</span> <span class="classifier">dict or None</span></dt>
-<dd>All info from members in the clan in dictionary format as below:
-&gt;&gt;&gt; member_info = {
-…     ‘player_1’: {
-…         ‘exp’: 225231234,
-…         ‘rank’: ‘Leader’
-…     },
-…     ‘player_2’: {
-…     ‘exp’: 293123082,
-…     ‘rank’: ‘Overseer’
-…    },
-… (…)
-… }
-or None if argument set_dict is False (True by default).</dd>
+<dd><dl class="first docutils">
+<dt>All info from members in the clan in dictionary format as below::</dt>
+<dd><div class="first last highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">member_info</span> <span class="o">=</span> <span class="p">{</span>
+<span class="gp">... </span>    <span class="s1">&#39;player_1&#39;</span><span class="p">:</span> <span class="p">{</span>
+<span class="gp">... </span>        <span class="s1">&#39;exp&#39;</span><span class="p">:</span> <span class="mi">225231234</span><span class="p">,</span>
+<span class="gp">... </span>        <span class="s1">&#39;rank&#39;</span><span class="p">:</span> <span class="s1">&#39;Leader&#39;</span>
+<span class="gp">... </span>    <span class="p">},</span>
+<span class="gp">... </span>    <span class="s1">&#39;player_2&#39;</span><span class="p">:</span> <span class="p">{</span>
+<span class="gp">... </span>    <span class="s1">&#39;exp&#39;</span><span class="p">:</span> <span class="mi">293123082</span><span class="p">,</span>
+<span class="gp">... </span>    <span class="s1">&#39;rank&#39;</span><span class="p">:</span> <span class="s1">&#39;Overseer&#39;</span>
+<span class="gp">... </span>   <span class="p">},</span>
+<span class="gp">... </span><span class="p">}</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+<p class="last">or None if argument set_dict is False (True by default).</p>
+</dd>
 <dt>count <span class="classifier-delimiter">:</span> <span class="classifier">int</span></dt>
 <dd>The number of members in the Clan.</dd>
 <dt>avg_exp <span class="classifier-delimiter">:</span> <span class="classifier">int or None</span></dt>
@@ -104,12 +110,11 @@ The dict format makes easier to find info specific to certain members of the Cla
 Mainly used for calculating the total exp of a clan manually.</p>
 <dl class="docutils">
 <dt>list</dt>
-<dd>All players information from a clan in list format like so:
+<dd>All players information from a clan in list format like so::
 &gt;&gt;&gt; clan_list = [
 … [‘Clanmate’, ‘ Clan Rank’, ‘ Total XP’, ‘ Kills’],
 … [‘Pedim’, ‘Owner’, ‘739711654’, ‘2’],
 … [‘Tusoroxo’, ‘Deputy Owner’, ‘1132958333’, ‘0’],
-… (…)
 … ]</dd>
 </dl>
 <table class="docutils field-list" frame="void" rules="none">
@@ -129,15 +134,20 @@ Mainly used for calculating the total exp of a clan manually.</p>
 <dt id="clans.ClanNotFoundError">
 <em class="property">exception </em><code class="descclassname">clans.</code><code class="descname">ClanNotFoundError</code><span class="sig-paren">(</span><em>value</em><span class="sig-paren">)</span><a class="headerlink" href="#clans.ClanNotFoundError" title="Permalink to this definition">¶</a></dt>
 <dd><p>Error exception to be called when a clan is not found when trying to read the clan’s URL using Rs3’s Official API.</p>
-<p>Correct error handling when reading a clan:
-&gt;&gt;&gt; import rs3clans
-&gt;&gt;&gt; try:
-…     clan_name = “oasdiuahsiubasiufbasuf”
-…     clan = rs3clans.Clan(name=clan_name)
-… except rs3clans.ClanNotFoundError:
-…     print(“Exception encountered!”)
-…
-Exception encountered!</p>
+<dl class="docutils">
+<dt>Correct error handling when reading a clan::</dt>
+<dd><div class="first last highlight-numpy notranslate"><div class="highlight"><pre><span></span><span class="o">&gt;&gt;&gt;</span> <span class="kn">import</span> <span class="nn">rs3clans</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="k">try</span><span class="p">:</span>
+<span class="o">...</span>     <span class="n">clan_name</span> <span class="o">=</span> <span class="s2">&quot;oasdiuahsiubasiufbasuf&quot;</span>
+<span class="o">...</span>     <span class="n">clan</span> <span class="o">=</span> <span class="n">rs3clans</span><span class="o">.</span><span class="n">Clan</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="n">clan_name</span><span class="p">)</span>
+<span class="o">...</span> <span class="k">except</span> <span class="n">rs3clans</span><span class="o">.</span><span class="n">ClanNotFoundError</span><span class="p">:</span>
+<span class="o">...</span>     <span class="k">print</span><span class="p">(</span><span class="s2">&quot;Exception encountered!&quot;</span><span class="p">)</span>
+<span class="o">...</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+<p>Exception encountered!</p>
 </dd></dl>
 
 </div>

@@ -5,6 +5,7 @@ import json
 
 class Player:
     """Class with attributes of a Runescape Player using Jagex's RS3 API
+    .. highlight:: numpy
 
     Most of Runescape 3's API can be accessed at: http://runescape.wikia.com/wiki/Application_programming_interface
 
@@ -60,6 +61,8 @@ class Player:
 
     def _raw_info(self):
         """
+        .. highlight:: numpy
+
         Gets JsonP information on a player, in string format.
 
         Returns
@@ -83,7 +86,7 @@ class Player:
         Returns
         ------
         dict
-            Dictionary is formatted as follows:
+            Dictionary is formatted as follows::
                 >>> player_info = {
                 ... 'is_suffix': True,
                 ... 'recruiting': True,
@@ -91,7 +94,7 @@ class Player:
                 ... 'clan': 'Atlantis',
                 ... 'title': 'the Liberator'
                 ... }
-
+                ...
             is_suffix : bool
                 If the player's title is a Suffix or not
             recruiting : bool
@@ -118,6 +121,8 @@ class Player:
 
     def runemetrics_info(self):
         """
+        .. highlight:: numpy
+
         Gets player info from Runemetrics' API.
         Sets self.private_profile to True if his Runemetrics profile is found to be Private.
 

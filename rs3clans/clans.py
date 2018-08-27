@@ -7,14 +7,14 @@ class ClanNotFoundError(Exception):
     """
     Error exception to be called when a clan is not found when trying to read the clan's URL using Rs3's Official API.
 
-    Correct error handling when reading a clan:
-    >>> import rs3clans
-    >>> try:
-    ...     clan_name = "oasdiuahsiubasiufbasuf"
-    ...     clan = rs3clans.Clan(name=clan_name)
-    ... except rs3clans.ClanNotFoundError:
-    ...     print("Exception encountered!")
-    ...
+    Correct error handling when reading a clan::
+        >>> import rs3clans
+        >>> try:
+        ...     clan_name = "oasdiuahsiubasiufbasuf"
+        ...     clan = rs3clans.Clan(name=clan_name)
+        ... except rs3clans.ClanNotFoundError:
+        ...     print("Exception encountered!")
+        ...
     Exception encountered!
     """
 
@@ -27,6 +27,7 @@ class ClanNotFoundError(Exception):
 
 class Clan:
     """Class with attributes of a Runescape Clan using Jagex's RS3 API
+    .. highlight:: numpy
 
     Most of Runescape 3's API can be accessed at: http://runescape.wikia.com/wiki/Application_programming_interface
 
@@ -51,18 +52,17 @@ class Clan:
     exp : int or None
         The total Exp of the clan, or None if argument set_exp is False (False by default).
     member : dict or None
-        All info from members in the clan in dictionary format as below:
-        >>> member_info = {
-        ...     'player_1': {
-        ...         'exp': 225231234,
-        ...         'rank': 'Leader'
-        ...     },
-        ...     'player_2': {
-        ...     'exp': 293123082,
-        ...     'rank': 'Overseer'
-        ...    },
-        ... (...)
-        ... }
+        All info from members in the clan in dictionary format as below::
+            >>> member_info = {
+            ...     'player_1': {
+            ...         'exp': 225231234,
+            ...         'rank': 'Leader'
+            ...     },
+            ...     'player_2': {
+            ...     'exp': 293123082,
+            ...     'rank': 'Overseer'
+            ...    },
+            ... }
         or None if argument set_dict is False (True by default).
     count : int
         The number of members in the Clan.
@@ -89,18 +89,19 @@ class Clan:
 
     def list_lookup(self):
         """
+        .. highlight:: numpy
+
         Used for getting all information available from a clan using Rs3's Clan API.
         Mainly used for calculating the total exp of a clan manually.
 
         Returns
         --------
         list
-            All players information from a clan in list format like so:
+            All players information from a clan in list format like so::
             >>> clan_list = [
             ... ['Clanmate', ' Clan Rank', ' Total XP', ' Kills'],
             ... ['Pedim', 'Owner', '739711654', '2'],
             ... ['Tusoroxo', 'Deputy Owner', '1132958333', '0'],
-            ... (...)
             ... ]
 
         See also:
@@ -122,6 +123,8 @@ class Clan:
 
     def dict_lookup(self, rank_key="rank", exp_key="exp"):
         """
+        .. highlight:: numpy
+
         Used for getting all information available from a clan using Rs3's Clan API.
 
         Contrary to :func: `list_lookup` it returns it as a Dictionary format instead.
@@ -156,6 +159,8 @@ class Clan:
 
     def _list_sum(self):
         """
+        .. highlight:: numpy
+
         Gets a clan list from :func: `list_lookup` and sums the total exp of the clan.
         It's used for setting :py:attr: `exp` when set_exp argument is passed as True when creating a Clan object.
 
@@ -169,6 +174,8 @@ class Clan:
 
     def _dict_sum(self):
         """
+        .. highlight:: numpy
+
         Gets a clan dictionary from :func: `dict_lookup` and sums the total exp of the clan.
 
         .. deprecated:: 0.4.0
