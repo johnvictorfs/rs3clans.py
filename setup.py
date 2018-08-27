@@ -37,6 +37,7 @@ setuptools.setup(
     zip_safe=False,
     url=URL,
     classifiers=(
-        "Programming Language :: Python :: 3.6"
+        "Programming Language :: Python :: 3.6",
+        "Programming Language :: Python :: 3.7"
     )
 )

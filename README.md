@@ -6,8 +6,9 @@ A Python 3 module wrapper for RuneScape 3 Clan's API
 ***
 ## Requirements:
 
-`Python>=3.6`
-`requests>=requests==2.19.1`
+- Python 3.6+
+
+- `requests>=2.19.1`
 
 ***
 
