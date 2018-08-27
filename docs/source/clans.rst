@@ -1,4 +1,4 @@
-rs3clans.py Clan functionalities
+Clan functionalities
 =======================================
 
 .. automodule:: clans

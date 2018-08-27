@@ -1,4 +1,4 @@
-rs3clans.py Player functionalities
+Player functionalities
 =======================================
 
 .. automodule:: players
