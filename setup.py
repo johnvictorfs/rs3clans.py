@@ -11,9 +11,9 @@ with open("README.md", "r") as fh:
 with open("rs3clans/__init__.py") as f:
     exec(f.read())
 
-REQUIRED_INSTALL = []
-with open('requirements.txt') as f:
-    REQUIRED_INSTALL = f.read().splitlines()
+REQUIRED_INSTALL = ['requests>=2.19.1', ]
+# with open('requirements.txt') as f:
+#     REQUIRED_INSTALL = f.read().splitlines()
 
 REQUIRED_DEV = []
 with open('requirements-dev.txt') as f:
@@ -26,6 +26,7 @@ EMAIL = 'johnvictorfs@gmail.com'
 DESCRIPTION = 'A Python 3 module wrapper for RuneScape 3 Clan\'s API'
 URL = 'https://github.com/johnvictorfs/rs3clans.py'
 REQUIRES_PYTHON = '>=3.6.0'
+LICENSE = 'MIT'
 
 setuptools.setup(
     name=NAME,
@@ -38,9 +39,8 @@ setuptools.setup(
     version=VERSION,
     author=AUTHOR,
     author_email=EMAIL,
-    license='MIT',
+    license=LICENSE,
     packages=setuptools.find_packages(exclude=('tests',)),
-    zip_safe=False,
     url=URL,
     classifiers=[
         "Programming Language :: Python :: 3.6",

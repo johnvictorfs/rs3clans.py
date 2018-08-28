@@ -14,8 +14,7 @@ class ClanNotFoundError(Exception):
         ...     clan = rs3clans.Clan(name=clan_name)
         ... except rs3clans.ClanNotFoundError:
         ...     print("Exception encountered!")
-        ...
-        'Exception encountered!'
+        Exception encountered!
     """
 
     def __init__(self, value):
@@ -75,6 +74,8 @@ class Clan:
         self.name = name
         self.exp = None
         self.member = None
+        self.count = None
+        self.avg_exp = None
 
         if set_exp is True:
             self.exp = self._list_sum()
@@ -120,8 +121,6 @@ class Clan:
         Contrary to `list_lookup` it returns it as a Dictionary format instead.
         The dict format makes easier to find info specific to certain members of the Clan instead of looping over it.
 
-        It's used for setting :py:attr: `member` when set_dict argument is passed as True when creating a Clan object.
-
         Parameters
         --------
         rank_key : str
@@ -149,10 +148,7 @@ class Clan:
 
     def _list_sum(self):
         """
-        .. highlight:: numpy
-
-        Gets a clan list from :func: `list_lookup` and sums the total exp of the clan.
-        It's used for setting :py:attr: `exp` when set_exp argument is passed as True when creating a Clan object.
+        Gets a clan list from `list_lookup` and sums the total exp of the clan.
 
         Returns
         --------
@@ -164,12 +160,10 @@ class Clan:
 
     def _dict_sum(self):
         """
-        .. highlight:: numpy
-
         Gets a clan dictionary from :func: `dict_lookup` and sums the total exp of the clan.
 
         .. deprecated:: 0.4.0
-            Use :func: `list_sum` as it's much faster.
+            Use `list_sum` as it's much faster.
 
         Returns
         --------

@@ -6,6 +6,5 @@ rs3clans/players.py
 rs3clans.egg-info/PKG-INFO
 rs3clans.egg-info/SOURCES.txt
 rs3clans.egg-info/dependency_links.txt
-rs3clans.egg-info/not-zip-safe
 rs3clans.egg-info/requires.txt
 rs3clans.egg-info/top_level.txt

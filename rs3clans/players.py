@@ -11,6 +11,7 @@ class Player:
     ...
 
     Parameters:
+    ----------
     name : str
         Name of the Player, gets set to case-sensitive name later if his RuneMetrics profile is
         not private. If you're also working with clans, the player's RuneMetrics profile is private, his name should be
@@ -35,6 +36,7 @@ class Player:
     def __init__(self, name: str):
 
         self.name = name
+        self.metrics_info = None
         self.exp = None
         self.combat_level = None
         self.total_level = None

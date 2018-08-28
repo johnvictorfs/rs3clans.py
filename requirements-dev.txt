@@ -1,7 +1,5 @@
 requests==2.19.1
 setuptools==39.0.1
-
-
 requests==2.19.1
 recommonmark==0.4.0
 setuptools==39.0.1
