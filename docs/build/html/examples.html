@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>Examples &#8212; rs3clans.py 0.5.9-1 documentation</title>
+    <title>Examples &#8212; rs3clans.py  documentation</title>
     <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
     <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
@@ -35,12 +35,16 @@
 <h1>Examples<a class="headerlink" href="#examples" title="Permalink to this headline">¶</a></h1>
 <ul class="simple">
 <li><dl class="first docutils">
-<dt>Installing::</dt>
-<dd>python3 -m pip install rs3clans</dd>
+<dt>Installing:</dt>
+<dd><ul class="first last">
+<li>python -m pip install rs3clans</li>
+</ul>
+</dd>
 </dl>
 </li>
-<li>Usage:</li>
 </ul>
+<div class="section" id="usage">
+<h2>Usage<a class="headerlink" href="#usage" title="Permalink to this headline">¶</a></h2>
 <dl class="docutils">
 <dt>Importing::</dt>
 <dd><div class="first last highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">rs3clans</span> <span class="k">as</span> <span class="nn">rs3</span>
@@ -54,6 +58,11 @@
 </dd>
 <dt>Creating Clan “clan” passing its name as the clan of “player” with set_exp ::</dt>
 <dd><div class="first last highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">clan</span> <span class="o">=</span> <span class="n">rs3</span><span class="o">.</span><span class="n">Clan</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="n">player</span><span class="o">.</span><span class="n">clan</span><span class="p">,</span> <span class="n">set_exp</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd>
+<dt>Setting player’s attributes that are obtained with Runemetric’s API::</dt>
+<dd><div class="first last highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">player</span><span class="o">.</span><span class="n">set_runemetrics_info</span><span class="p">()</span>
 </pre></div>
 </div>
 </dd>
@@ -112,9 +121,9 @@
 </div>
 </dd>
 </dl>
-<ul class="simple">
-<li>Handling exceptions/errors:</li>
-</ul>
+</div>
+<div class="section" id="handling-exceptions-errors">
+<h2>Handling exceptions/errors:<a class="headerlink" href="#handling-exceptions-errors" title="Permalink to this headline">¶</a></h2>
 <dl class="docutils">
 <dt>Dealing with non-existent clans::</dt>
 <dd><div class="first last highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="k">try</span><span class="p">:</span>
@@ -160,6 +169,7 @@
 </dd>
 </dl>
 </div>
+</div>
 
 
           </div>
@@ -182,7 +192,11 @@
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="clans.html">Clan functionalities</a></li>
 <li class="toctree-l1"><a class="reference internal" href="players.html">Player functionalities</a></li>
-<li class="toctree-l1 current"><a class="current reference internal" href="#">Examples</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Examples</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#usage">Usage</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#handling-exceptions-errors">Handling exceptions/errors:</a></li>
+</ul>
+</li>
 </ul>
 
 <div class="relations">

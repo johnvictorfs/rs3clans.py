@@ -1,10 +1,11 @@
 Examples
 =======================================
 
-* Installing::
-    python3 -m pip install rs3clans
+* Installing:
+    - python -m pip install rs3clans
 
-* Usage:
+Usage
+-----
 
 Importing::
     >>> import rs3clans as rs3
@@ -14,6 +15,9 @@ Creating object Player passing its name as "nriver"::
 
 Creating Clan "clan" passing its name as the clan of "player" with set_exp ::
     >>> clan = rs3.Clan(name=player.clan, set_exp=True)
+
+Setting player's attributes that are obtained with Runemetric's API::
+    >>> player.set_runemetrics_info()
 
 Printing the player name, real case-sensitive name if the user has his Runemetrics profile not Private, otherwise as passed when creating object::
     >>> print(f"Player Name: {player.name}")
@@ -51,8 +55,8 @@ Printing the average clan exp per member of clan::
     >>> print(f"Average Clan Exp per member: {clan.avg_exp}")
     Average Clan Exp per member: 303305888.44288576
 
-* Handling exceptions/errors:
-
+Handling exceptions/errors:
+---------------------------
 Dealing with non-existent clans::
     >>> try:
     ...     clan = rs3.Clan("adnygydbydby2bdyb28123")

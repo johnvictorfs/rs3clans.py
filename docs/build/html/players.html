@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>Player functionalities &#8212; rs3clans.py 0.5.9-1 documentation</title>
+    <title>Player functionalities &#8212; rs3clans.py  documentation</title>
     <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
     <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
@@ -86,17 +86,65 @@ Otherwise some clan attributes will not be available.</p>
 <tr class="row-odd"><td><a class="reference internal" href="#players.Player.runemetrics_info" title="players.Player.runemetrics_info"><code class="xref py py-obj docutils literal notranslate"><span class="pre">runemetrics_info</span></code></a>()</td>
 <td>Gets player info from Runemetrics’ API.</td>
 </tr>
+<tr class="row-even"><td><a class="reference internal" href="#players.Player.set_runemetrics_info" title="players.Player.set_runemetrics_info"><code class="xref py py-obj docutils literal notranslate"><span class="pre">set_runemetrics_info</span></code></a>()</td>
+<td>Sets Runemetrics info attributes for the Player.</td>
+</tr>
 </tbody>
 </table>
 <dl class="method">
 <dt id="players.Player.runemetrics_info">
 <code class="descname">runemetrics_info</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#players.Player.runemetrics_info" title="Permalink to this definition">¶</a></dt>
 <dd><p>Gets player info from Runemetrics’ API.
-Sets self.private_profile to True if his Runemetrics profile is found to be Private.</p>
+Sets <cite>private_profile</cite> to True if his Runemetrics profile is found to be Private.</p>
+<p>Format:
+&gt;&gt;&gt; {
+… “magic”:16216354,
+… “questsstarted”:5,
+… “totalskill”:2715,
+… “questscomplete”:198,
+… “questsnotstarted”:32,
+… “totalxp”:1037291112,
+… “ranged”:84195157,
+… “activities”:[
+…
+… ],
+… # “skillvalues” has all skills and they are marked with their respective ID’s, only 3 were shown here
+… “skillvalues”:[
+…    {
+…       “level”:120,
+…       “xp”:1857550415,
+…       “rank”:12014,
+…       “id”:26
+…    },
+…    {
+…       “level”:99,
+…       “xp”:1202360390,
+…       “rank”:10370,
+…       “id”:6
+…    },
+…    {
+…       “level”:99,
+…       “xp”:841951573,
+…       “rank”:26941,
+…       “id”:3
+…    },
+… ],
+… “name”:”NRiver”,
+… “rank”:”36,708”,
+… “melee”:527931306,
+… “combatlevel”:138,
+… “loggedIn”:”false”
+… }</p>
 <dl class="docutils">
 <dt>dict or bool</dt>
 <dd>Runemetrics player info if the player profile is public, or False if it is Private.</dd>
 </dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="players.Player.set_runemetrics_info">
+<code class="descname">set_runemetrics_info</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#players.Player.set_runemetrics_info" title="Permalink to this definition">¶</a></dt>
+<dd><p>Sets Runemetrics info attributes for the Player.</p>
 </dd></dl>
 
 </dd></dl>

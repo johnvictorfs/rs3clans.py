@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>Clan functionalities &#8212; rs3clans.py 0.5.9-1 documentation</title>
+    <title>Clan functionalities &#8212; rs3clans.py  documentation</title>
     <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
     <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
@@ -122,17 +122,21 @@
 <dd><p>Used for getting all information available from a clan using Rs3’s Clan API.</p>
 <p>Contrary to <cite>list_lookup</cite> it returns it as a Dictionary format instead.
 The dict format makes easier to find info specific to certain members of the Clan instead of looping over it.</p>
-<dl class="docutils">
-<dt>rank_key <span class="classifier-delimiter">:</span> <span class="classifier">str</span></dt>
-<dd>The key for Clan Rank to be used in the returned dictionary with all members info of clan.</dd>
-<dt>exp_key <span class="classifier-delimiter">:</span> <span class="classifier">str</span></dt>
-<dd>The key for Clan Exp to be used in the returned dictionary with all members info of clan.</dd>
-</dl>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body"><dl class="first last docutils">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><dl class="first docutils">
+<dt><strong>rank_key</strong> <span class="classifier-delimiter">:</span> <span class="classifier">str</span></dt>
+<dd><p class="first last">The key for Clan Rank to be used in the returned dictionary with all members info of clan.</p>
+</dd>
+<dt><strong>exp_key</strong> <span class="classifier-delimiter">:</span> <span class="classifier">str</span></dt>
+<dd><p class="first last">The key for Clan Exp to be used in the returned dictionary with all members info of clan.</p>
+</dd>
+</dl>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><dl class="first last docutils">
 <dt><strong>dict</strong></dt>
 <dd><p class="first last">Information from all members in the clan in dictionary format for ease of access.</p>
 </dd>

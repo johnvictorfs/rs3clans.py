@@ -2,6 +2,9 @@
 import urllib.request
 import json
 
+# Non-standard Imports
+import requests
+
 
 class Player:
     """Class with attributes of a Runescape Player using Jagex's RS3 API
@@ -43,15 +46,6 @@ class Player:
         self.private_profile = True
         self.exists = True
 
-        # If user's runemetrics profile is private, self.name will be the same as passed when creating object.
-        # Otherwise it will get the correct case-sensitive name from his runemetrics profile.
-        # Some other info like Total exp, Combat level and Total level will be created as well.
-        if self.runemetrics_info():
-            self.metrics_info = self.runemetrics_info()
-            self.name = self.metrics_info['name']
-            self.exp = self.metrics_info['totalxp']
-            self.combat_level = self.metrics_info['combatlevel']
-            self.total_level = self.metrics_info['totalskill']
         self.info = self._dict_info()
         self.suffix = self.info['is_suffix']
         self.title = self.info['title']
@@ -65,7 +59,7 @@ class Player:
         Gets JsonP information on a player, in string format.
 
         Returns
-        ------
+        -------
         str
             JsonP information on player, converted to string.
 
@@ -84,7 +78,7 @@ class Player:
         Used to set self.info.
 
         Returns
-        ------
+        -------
         dict
             Dictionary is formatted as follows::
                 >>> player_info = {
@@ -107,6 +101,7 @@ class Player:
         """
         str_info = self._raw_info()
         info_list = []
+
         # str_info[36] = Start of json format in URL '{'
         for letter in str_info[36:]:
             info_list.append(letter)
@@ -118,10 +113,75 @@ class Player:
         del info_dict['isSuffix']
         return info_dict
 
+    def set_runemetrics_info(self):
+        """
+        Sets Runemetrics info attributes for the Player.
+
+        Attributes set
+        --------------
+        name : str
+            Case-sensitive player username.
+        exp : int
+            Total Exp of the Player.
+        combat_level : int
+            Total Combat Level of the Player.
+        total_level : int
+            Total Skill Level of the Player.
+        """
+        # If user's runemetrics profile is private, self.name will be the same as passed when creating object.
+        # Otherwise it will get the correct case-sensitive name from his runemetrics profile.
+        # Some other info like Total exp, Combat level and Total level will be created as well.
+        self.metrics_info = self.runemetrics_info()
+        if self.metrics_info is not False:
+            self.name = self.metrics_info['name']
+            self.exp = self.metrics_info['totalxp']
+            self.combat_level = self.metrics_info['combatlevel']
+            self.total_level = self.metrics_info['totalskill']
+
     def runemetrics_info(self):
         """
         Gets player info from Runemetrics' API.
-        Sets self.private_profile to True if his Runemetrics profile is found to be Private.
+        Sets `private_profile` to True if his Runemetrics profile is found to be Private.
+
+        Format:
+        >>> {
+        ... "magic":16216354,
+        ... "questsstarted":5,
+        ... "totalskill":2715,
+        ... "questscomplete":198,
+        ... "questsnotstarted":32,
+        ... "totalxp":1037291112,
+        ... "ranged":84195157,
+        ... "activities":[
+        ...
+        ... ],
+        ... # "skillvalues" has all skills and they are marked with their respective ID's, only 3 were shown here
+        ... "skillvalues":[
+        ...    {
+        ...       "level":120,
+        ...       "xp":1857550415,
+        ...       "rank":12014,
+        ...       "id":26
+        ...    },
+        ...    {
+        ...       "level":99,
+        ...       "xp":1202360390,
+        ...       "rank":10370,
+        ...       "id":6
+        ...    },
+        ...    {
+        ...       "level":99,
+        ...       "xp":841951573,
+        ...       "rank":26941,
+        ...       "id":3
+        ...    },
+        ... ],
+        ... "name":"NRiver",
+        ... "rank":"36,708",
+        ... "melee":527931306,
+        ... "combatlevel":138,
+        ... "loggedIn":"false"
+        ... }
 
         Returns
         ------
@@ -130,9 +190,8 @@ class Player:
         """
         user_name = self.name.replace(' ', '%20')
         info_url = f"https://apps.runescape.com/runemetrics/profile/profile?user={user_name}&activities=0"
-        client = urllib.request.urlopen(info_url)
-        info = client.read()
-        json_info = json.loads(info)
+        response = requests.get(info_url)
+        json_info = response.json()
         try:
             if json_info['error'] == 'PROFILE_PRIVATE':
                 self.private_profile = True
@@ -147,8 +206,14 @@ class Player:
 
 
 if __name__ == '__main__':
+    import time
+    start = time.time()
+
     # Creating Player with the name "nriver"
     player = Player("nriver")
+
+    # Setting attributes that are obtained with runemetric's API
+    player.set_runemetrics_info()
 
     # Player name (Actual case-sensitive name if Runemetrics profile isn't private, otherwise it will be as passed)
     print(player.name)
@@ -173,3 +238,6 @@ if __name__ == '__main__':
 
     # Prints the Total level of player (if his Runemetrics profile is private it will output 0)
     print(player.total_level)
+
+    print(f"Took: {time.time() - start:.4f}")
+

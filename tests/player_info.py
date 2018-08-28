@@ -7,6 +7,9 @@ if __name__ == '__main__':
     # Creating Player "player" passing its name as "nriver"
     player = rs3.Player(name="nriver")
 
+    # Setting attributes that are obtained with runemetric's API
+    player.set_runemetrics_info()
+
     # Creating Clan "clan" passing its name as the clan of "player"
     clan = rs3.Clan(name=player.clan, set_exp=True)
 

@@ -1,5 +1,7 @@
 # Standard Imports
 import csv
+
+# Non-standard Imports
 import requests
 
 
@@ -92,7 +94,7 @@ class Clan:
         Mainly used for calculating the total exp of a clan manually.
 
         Returns
-        --------
+        -------
         list
             All players information from a clan in list format like so::
                 >>> clan_list = [
@@ -122,7 +124,7 @@ class Clan:
         The dict format makes easier to find info specific to certain members of the Clan instead of looping over it.
 
         Parameters
-        --------
+        ----------
         rank_key : str
             The key for Clan Rank to be used in the returned dictionary with all members info of clan.
         exp_key : str
@@ -151,7 +153,7 @@ class Clan:
         Gets a clan list from `list_lookup` and sums the total exp of the clan.
 
         Returns
-        --------
+        -------
         int
             The total Exp of the Clan.
         """
@@ -166,7 +168,7 @@ class Clan:
             Use `list_sum` as it's much faster.
 
         Returns
-        --------
+        -------
         int
             The total Exp of the Clan.
         """
