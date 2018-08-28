@@ -10,14 +10,14 @@ class Player:
 
     ...
 
-    Parameters:
+    Parameters
     ----------
     name : str
-        Name of the Player, gets set to case-sensitive name later if his RuneMetrics profile is
-        not private. If you're also working with clans, the player's RuneMetrics profile is private, his name should be
-        passed case-sensitively. Otherwise some clan attributes will not be available.
+        Name of the Player, gets set to case-sensitive name later if his RuneMetrics profile is not private.
+        If you're also working with clans and the player's profile is private, name should be passed case-sensitively.
+        Otherwise some clan attributes will not be available.
 
-    Attributes:
+    Attributes
     ----------
     name : str
         Name of the Player, gets set to case-sensitive name later if his RuneMetrics profile is not private.
@@ -33,7 +33,7 @@ class Player:
         If the player exists or not.
     """
 
-    def __init__(self, name: str):
+    def __init__(self, name):
 
         self.name = name
         self.metrics_info = None
