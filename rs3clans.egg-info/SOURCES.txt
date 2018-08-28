@@ -1,4 +1,7 @@
+LICENSE
+MANIFEST.in
 README.md
+requirements.txt
 setup.py
 rs3clans/__init__.py
 rs3clans/__version__.py
