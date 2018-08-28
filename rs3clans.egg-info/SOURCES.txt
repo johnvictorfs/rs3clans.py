@@ -1,6 +1,7 @@
 README.md
 setup.py
 rs3clans/__init__.py
+rs3clans/__version__.py
 rs3clans/clans.py
 rs3clans/players.py
 rs3clans.egg-info/PKG-INFO

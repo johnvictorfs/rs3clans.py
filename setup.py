@@ -7,13 +7,13 @@ __version__ = None
 with open("README.md", "r") as fh:
     long_description = fh.read()
 
-# Reading __version__ and __author__ from __init__.py
-with open("rs3clans/__init__.py") as f:
+# Reading __version__ and __author__ from __version__.py
+with open("rs3clans/__version__.py") as f:
     exec(f.read())
 
-REQUIRED_INSTALL = ['requests>=2.19.1', ]
-# with open('requirements.txt') as f:
-#     REQUIRED_INSTALL = f.read().splitlines()
+REQUIRED_INSTALL = []
+with open('requirements.txt') as f:
+    REQUIRED_INSTALL = f.read().splitlines()
 
 REQUIRED_DEV = []
 with open('requirements-dev.txt') as f:
