@@ -148,6 +148,26 @@ class Clan:
             }
         return clan_dict
 
+    def get_member(self, name):
+        """
+
+        Used for searching information about a clan member by passing in its name case insensitively.
+
+        Parameters
+        ----------
+        name : str
+            The name of the player to be searched in clan.
+
+        Returns
+        --------
+        dict
+            Information of the member passed in, with the keys ['exp'] and ['rank'] (or any custom keys you might have
+            passed when creating Clan object.
+        """
+        for key, value in self.member.items():
+            if key.lower() == name.lower():
+                return value
+
     def _list_sum(self):
         """
         Gets a clan list from `list_lookup` and sums the total exp of the clan.
@@ -174,6 +194,9 @@ class Clan:
         """
         clan_dict = self.dict_lookup()
         return sum(members['exp'] for members in clan_dict.values())
+
+    def __str__(self):
+        return f"Name: {self.name} Exp: {self.exp} Avg. Exp: {self.avg_exp} Number of Members: {self.count}"
 
 
 if __name__ == '__main__':
