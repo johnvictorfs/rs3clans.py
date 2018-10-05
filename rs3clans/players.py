@@ -204,6 +204,9 @@ class Player:
             self.private_profile = False
             return json_info
 
+    def __str__(self):
+        return f"Name: {self.name} Clan: {self.clan} Exists: {self.exists}"
+
 
 if __name__ == '__main__':
     import time
