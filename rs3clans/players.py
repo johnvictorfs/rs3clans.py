@@ -36,19 +36,38 @@ class Player:
         If the player exists or not.
     """
 
-    def __init__(self, name):
+    def __init__(self, name, runemetrics=True):
 
         self.name = name
         self.metrics_info = None
         self.exp = None
         self.combat_level = None
         self.total_level = None
+        self.quests_not_started = None
+        self.quests_started = None
+        self.quests_complete = None
+        self.skill_values = None
         self.private_profile = True
         self.exists = True
 
         self.info = self._dict_info()
         self.suffix = self.info['is_suffix']
         self.title = self.info['title']
+
+        # The 2 checks below are band-aid fixes that marks self.exists as False even if 'runemetrics' parameter
+        # is passed as False when creating Player object, a real way to check if a player exists needs to be added
+        _banned_chars = ('!', '@', '#', '$', '%', '¨', '&', '*', '(', ')', '-', '[', ']', ',', '.', '~', '^'
+                         '{', '}', ':', ';', "'", '"', 'ç', 'Ç', '?', '/', '°', '|', '\\', '`', '=', '+', '¬'
+                         '¹', '²', '³', '£', '¢', 'ª', 'º')
+        if len(self.name) > 12:
+            self.exists = False
+        for char in _banned_chars:
+            if char in self.name:
+                self.exists = False
+
+        if runemetrics:
+            self.set_runemetrics_info()
+
         try:
             self.clan = self.info['clan']
         except KeyError:
@@ -137,6 +156,10 @@ class Player:
             self.exp = self.metrics_info['totalxp']
             self.combat_level = self.metrics_info['combatlevel']
             self.total_level = self.metrics_info['totalskill']
+            self.quests_not_started = self.metrics_info['questsnotstarted']
+            self.quests_started = self.metrics_info['questsstarted']
+            self.quests_complete = self.metrics_info['questscomplete']
+            self.skill_values = self.metrics_info['skillvalues']
 
     def runemetrics_info(self):
         """
@@ -204,8 +227,78 @@ class Player:
             self.private_profile = False
             return json_info
 
+    def skill(self, skill):
+        skills_index = {
+            0: 'attack',
+            1: 'defence',
+            2: 'strength',
+            3: 'constitution',
+            4: 'ranged',
+            5: 'prayer',
+            6: 'magic',
+            7: 'cooking',
+            8: 'woodcutting',
+            9: 'fletching',
+            10: 'fishing',
+            11: 'firemaking',
+            12: 'crafting',
+            13: 'smithing',
+            14: 'mining',
+            15: 'herblore',
+            16: 'agility',
+            17: 'thieving',
+            18: 'slayer',
+            19: 'farming',
+            20: 'runecrafting',
+            21: 'hunter',
+            22: 'construction',
+            23: 'summoning',
+            24: 'dungeoneering',
+            25: 'divination',
+            26: 'invention',
+        }
+
+        try:
+            skill = int(skill)
+            for _skill in self.skill_values:
+                if _skill['id'] == skill:
+                    return Skill(name=skills_index[skill], skill_dict=_skill)
+        except ValueError:
+            skill = skill.lower()
+            for index, value in skills_index.items():
+                if skill == value:
+                    skill = index
+                    for _skill in self.skill_values:
+                        if _skill['id'] == skill:
+                            return Skill(name=skills_index[skill], skill_dict=_skill)
+
     def __str__(self):
         return f"Name: {self.name} Clan: {self.clan} Exists: {self.exists}"
+
+
+class Skill:
+    def __init__(self, name, skill_dict):
+        self.name = name
+        try:
+            self.exp = skill_dict['xp'] / 10
+        except KeyError:
+            self.exp = None
+        self.xp = self.exp
+        try:
+            self.level = skill_dict['level']
+        except KeyError:
+            self.level = None
+        try:
+            self.rank = skill_dict['rank']
+        except KeyError:
+            self.rank = None
+        try:
+            self.id = skill_dict['id']
+        except KeyError:
+            self.id = None
+
+    def __str__(self):
+        return self.name
 
 
 if __name__ == '__main__':
@@ -243,4 +336,3 @@ if __name__ == '__main__':
     print(player.total_level)
 
     print(f"Took: {time.time() - start:.4f}")
-
