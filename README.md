@@ -176,4 +176,5 @@ True
 ### Documentation:
 
 - Documentations are currently outdated because of issues with readthedocs that i can't be arsed to do band-aid fixes to "fix", use the examples above instead
+
 [![Docs](https://readthedocs.org/projects/rs3clanspy/badge/?version=latest)](https://rs3clanspy.readthedocs.io/en/latest/?badge=latest)
