@@ -19,6 +19,9 @@ class Player:
         Name of the Player, gets set to case-sensitive name later if his RuneMetrics profile is not private.
         If you're also working with clans and the player's profile is private, name should be passed case-sensitively.
         Otherwise some clan attributes will not be available.
+    runemetrics : bool
+        Where or not Runemetrics player info should be set or not, slows down creating the object, but provides more
+        attributes and methods.
 
     Attributes
     ----------
@@ -166,45 +169,45 @@ class Player:
         Gets player info from Runemetrics' API.
         Sets `private_profile` to True if his Runemetrics profile is found to be Private.
 
-        Format:
-        >>> {
-        ... "magic":16216354,
-        ... "questsstarted":5,
-        ... "totalskill":2715,
-        ... "questscomplete":198,
-        ... "questsnotstarted":32,
-        ... "totalxp":1037291112,
-        ... "ranged":84195157,
-        ... "activities":[
-        ...
-        ... ],
-        ... # "skillvalues" has all skills and they are marked with their respective ID's, only 3 were shown here
-        ... "skillvalues":[
-        ...    {
-        ...       "level":120,
-        ...       "xp":1857550415,
-        ...       "rank":12014,
-        ...       "id":26
-        ...    },
-        ...    {
-        ...       "level":99,
-        ...       "xp":1202360390,
-        ...       "rank":10370,
-        ...       "id":6
-        ...    },
-        ...    {
-        ...       "level":99,
-        ...       "xp":841951573,
-        ...       "rank":26941,
-        ...       "id":3
-        ...    },
-        ... ],
-        ... "name":"NRiver",
-        ... "rank":"36,708",
-        ... "melee":527931306,
-        ... "combatlevel":138,
-        ... "loggedIn":"false"
-        ... }
+        Format::
+            >>> {
+            ... "magic":16216354,
+            ... "questsstarted":5,
+            ... "totalskill":2715,
+            ... "questscomplete":198,
+            ... "questsnotstarted":32,
+            ... "totalxp":1037291112,
+            ... "ranged":84195157,
+            ... "activities":[
+            ...
+            ... ],
+            ... # "skillvalues" has all skills and they are marked with their respective ID's, only 3 were shown here
+            ... "skillvalues":[
+            ...    {
+            ...       "level":120,
+            ...       "xp":1857550415,
+            ...       "rank":12014,
+            ...       "id":26
+            ...    },
+            ...    {
+            ...       "level":99,
+            ...       "xp":1202360390,
+            ...       "rank":10370,
+            ...       "id":6
+            ...    },
+            ...    {
+            ...       "level":99,
+            ...       "xp":841951573,
+            ...       "rank":26941,
+            ...       "id":3
+            ...    },
+            ... ],
+            ... "name":"NRiver",
+            ... "rank":"36,708",
+            ... "melee":527931306,
+            ... "combatlevel":138,
+            ... "loggedIn":"false"
+            ... }
 
         Returns
         ------
@@ -229,28 +232,35 @@ class Player:
 
     def skill(self, skill):
         """
+        Gets information on a specific skill from the Player
+
+        Usage::
+            >>> # Example of usage of the method skill()
+            >>> player = Player('NRiver')
+            >>> player.skill('agility').level
+            99
+            >>> # Can pass skill names as well as id
+            >>> # (8 = Woodcutting for example)
+            >>> player.skill(8).exp
+            14054178.6
+            >>> player.skill('AtTaCk').rank
+            68311
 
         Parameters
         ----------
         skill : str or int
             Skill name or id to get info of
 
-        Usage
-        ----------
-        >>> # Example of usage of the method skill()
-        >>> player = rs3clans.Player('NRiver')
-        >>> agility_level = player.skill('agility').level
-        >>> woodcutting_exp = player.skill(8).exp
-        >>> attack_rank = player.skill('AtTaCk').rank
-
         Returns
         ----------
-        Skill
-            Attributes
+        Skill object
+            Attributes of Skill
             ----------
-            exp : Total exp the Player has in that skill (aliased as 'xp' as well)
-            level: The level the Player has in that skill
-            rank: The rank the Player has in that skill
+                exp (or 'xp') : Total exp the Player has in that skill
+
+                level : The level the Player has in that skill
+
+                rank : The rank the Player has in that skill
         """
         skills_index = {
             0: 'attack',
