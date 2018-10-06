@@ -255,7 +255,7 @@ class Player:
         ----------
         Skill object
             Attributes of Skill
-            ----------
+            --------------------
                 exp (or 'xp') : Total exp the Player has in that skill
 
                 level : The level the Player has in that skill
