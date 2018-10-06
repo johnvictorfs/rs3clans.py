@@ -152,7 +152,7 @@ True
 
 ```python
 >>> # Case-insensitive
->>> clan.get_member('nriver')  # Case-insensitive
+>>> clan.get_member('nriver')
 {'rank': 'Overseer', 'exp': 1041963324}
 >>> clan.get_member('nRiVeR').rank
 'Overseer'
