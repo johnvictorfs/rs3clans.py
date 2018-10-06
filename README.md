@@ -154,7 +154,7 @@ True
 >>> # Case-insensitive
 >>> clan.get_member('nriver')
 {'rank': 'Overseer', 'exp': 1041963324}
->>> clan.get_member('nRiVeR').rank
+>>> clan.get_member('nRiVeR')['rank']
 'Overseer'
 ```
 
