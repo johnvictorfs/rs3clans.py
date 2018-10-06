@@ -13,6 +13,7 @@
     <script type="text/javascript" src="_static/jquery.js"></script>
     <script type="text/javascript" src="_static/underscore.js"></script>
     <script type="text/javascript" src="_static/doctools.js"></script>
+    <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
    
@@ -35,9 +36,9 @@
 <h1>Examples<a class="headerlink" href="#examples" title="Permalink to this headline">¶</a></h1>
 <ul class="simple">
 <li><dl class="first docutils">
-<dt>Installing:</dt>
+<dt>Installing::</dt>
 <dd><ul class="first last">
-<li>python -m pip install rs3clans</li>
+<li><cite>python -m pip install rs3clans</cite></li>
 </ul>
 </dd>
 </dl>
@@ -53,6 +54,9 @@
 </dd>
 <dt>Creating object Player passing its name as “nriver”::</dt>
 <dd><div class="first last highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">player</span> <span class="o">=</span> <span class="n">rs3</span><span class="o">.</span><span class="n">Player</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s2">&quot;nriver&quot;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># If runemetrics is True when creating object Player</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># set_runemetrics_info() method will run by default</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">player</span><span class="o">.</span><span class="n">rs3</span><span class="o">.</span><span class="n">Player</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s2">&quot;nriver&quot;</span><span class="p">,</span> <span class="n">runemetrics</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 </pre></div>
 </div>
 </dd>
@@ -62,61 +66,92 @@
 </div>
 </dd>
 <dt>Setting player’s attributes that are obtained with Runemetric’s API::</dt>
-<dd><div class="first last highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">player</span><span class="o">.</span><span class="n">set_runemetrics_info</span><span class="p">()</span>
+<dd><div class="first last highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># Not needed if runemetrics was True when creating Player</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">player</span><span class="o">.</span><span class="n">set_runemetrics_info</span><span class="p">()</span>
 </pre></div>
 </div>
 </dd>
-<dt>Printing the player name, real case-sensitive name if the user has his Runemetrics profile not Private, otherwise as passed when creating object::</dt>
-<dd><div class="first last highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">f</span><span class="s2">&quot;Player Name: </span><span class="si">{player.name}</span><span class="s2">&quot;</span><span class="p">)</span>
-<span class="go">Player Name: NRiver</span>
+<dt>Getting Player name, real case-sensitive name if the user has his Runemetrics profile not Private, otherwise as passed when creating object::</dt>
+<dd><div class="first last highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">player</span><span class="o">.</span><span class="n">name</span>
+<span class="go">NRiver</span>
 </pre></div>
 </div>
 </dd>
-<dt>Printing some player info in Dictionary format::</dt>
-<dd><div class="first last highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">f</span><span class="s2">&quot;Player Info: </span><span class="si">{player.info}</span><span class="s2">&quot;</span><span class="p">)</span>
-<span class="go">Player Info: {&#39;isSuffix&#39;: True, &#39;recruiting&#39;: True, &#39;name&#39;: &#39;NRiver&#39;, &#39;clan&#39;: &#39;Atlantis&#39;, &#39;title&#39;: &#39;the Liberator&#39;}</span>
+<dt>Generic player info::</dt>
+<dd><div class="first last highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">player</span>
+<span class="go">Name: NRiver Clan: Atlantis Exists: True</span>
 </pre></div>
 </div>
 </dd>
-<dt>Printing player’s clan name::</dt>
-<dd><div class="first last highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">f</span><span class="s2">&quot;Player Clan: </span><span class="si">{player.clan}</span><span class="s2">&quot;</span><span class="p">)</span>
-<span class="go">Player Clan: Atlantis</span>
+<dt>Getting information of specific skills from the player::</dt>
+<dd><div class="first last highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">player</span><span class="o">.</span><span class="n">skill</span><span class="p">(</span><span class="s1">&#39;agility&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">level</span>
+<span class="go">99</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># Can pass skill names as well as id</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># (8 = Woodcutting for example)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">player</span><span class="o">.</span><span class="n">skill</span><span class="p">(</span><span class="mi">8</span><span class="p">)</span><span class="o">.</span><span class="n">exp</span>
+<span class="go">14054178.6</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">player</span><span class="o">.</span><span class="n">skill</span><span class="p">(</span><span class="s1">&#39;AtTaCk&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">rank</span>
+<span class="go">68311</span>
 </pre></div>
 </div>
 </dd>
-<dt>Printing player’s total Exp, or None if his Runemetrics profile is private::</dt>
-<dd><div class="first last highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">f</span><span class="s2">&quot;Player Total Exp: </span><span class="si">{player.exp}</span><span class="s2">&quot;</span><span class="p">)</span>
-<span class="go">Player Total Exp: 1037291112</span>
+<dt>Getting some player info in Dictionary format::</dt>
+<dd><div class="first last highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">player</span><span class="o">.</span><span class="n">info</span>
+<span class="go">{&#39;isSuffix&#39;: True, &#39;recruiting&#39;: True, &#39;name&#39;: &#39;NRiver&#39;, &#39;clan&#39;: &#39;Atlantis&#39;, &#39;title&#39;: &#39;the Liberator&#39;}</span>
 </pre></div>
 </div>
 </dd>
-<dt>Printing the total exp of clan::</dt>
-<dd><div class="first last highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">f</span><span class="s2">&quot;Clan Exp: </span><span class="si">{clan.exp}</span><span class="s2">&quot;</span><span class="p">)</span>
-<span class="go">Clan Exp: 151349638333</span>
+<dt>Getting player’s clan name::</dt>
+<dd><div class="first last highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">player</span><span class="o">.</span><span class="n">clan</span>
+<span class="go">Atlantis</span>
 </pre></div>
 </div>
 </dd>
-<dt>Printing info in Dictionary format of the clan’s member “Pedim” (requires case-sensitive name)::</dt>
-<dd><div class="first last highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">f</span><span class="s2">&quot;Clan info of &#39;Pedim&#39;: </span><span class="si">{clan.member[&#39;Pedim&#39;]}</span><span class="s2">&quot;</span><span class="p">)</span>
-<span class="go">Clan info of &#39;Pedim&#39;: {&#39;rank&#39;: &#39;Owner&#39;, &#39;exp&#39;: 739711654}</span>
+<dt>Getting player’s total Exp, or None if his Runemetrics profile is private::</dt>
+<dd><div class="first last highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">player</span><span class="o">.</span><span class="n">exp</span>
+<span class="go">1037291112</span>
 </pre></div>
 </div>
 </dd>
-<dt>Printing the rank of member “Pedim” in his clan::</dt>
-<dd><div class="first last highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">f</span><span class="s2">&quot;Rank of &#39;Pedim&#39;: </span><span class="si">{clan.member[&#39;Pedim&#39;][&#39;rank&#39;]}</span><span class="s2">&quot;</span><span class="p">)</span>
-<span class="go">Rank of &#39;Pedim&#39;: Owner</span>
+<dt>Getting the total exp of clan::</dt>
+<dd><div class="first last highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">clan</span><span class="o">.</span><span class="n">exp</span>
+<span class="go">151349638333</span>
 </pre></div>
 </div>
 </dd>
-<dt>Printing the total player count of clan::</dt>
-<dd><div class="first last highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">f</span><span class="s2">&quot;Player Count of clan: </span><span class="si">{clan.count}</span><span class="s2">&quot;</span><span class="p">)</span>
-<span class="go">Player Count of clan: 499</span>
+<dt>Getting info in Dictionary format of the clan’s member “Pedim” (case-sensitive)::</dt>
+<dd><div class="first last highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">clan</span><span class="o">.</span><span class="n">member</span><span class="p">[</span><span class="s1">&#39;Pedim&#39;</span><span class="p">]</span>
+<span class="go">{&#39;rank&#39;: &#39;Owner&#39;, &#39;exp&#39;: 739711654}</span>
 </pre></div>
 </div>
 </dd>
-<dt>Printing the average clan exp per member of clan::</dt>
-<dd><div class="first last highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">f</span><span class="s2">&quot;Average Clan Exp per member: </span><span class="si">{clan.avg_exp}</span><span class="s2">&quot;</span><span class="p">)</span>
-<span class="go">Average Clan Exp per member: 303305888.44288576</span>
+<dt>Getting info in Dictionary format of the clan’s member “NRiver” (case insensitive)::</dt>
+<dd><div class="first last highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">clan</span><span class="o">.</span><span class="n">get_member</span><span class="p">(</span><span class="s1">&#39;nRiVeR&#39;</span><span class="p">)</span>
+<span class="go">{&#39;rank&#39;: &#39;Overseer&#39;, &#39;exp&#39;: 1041963324}</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">clan</span><span class="o">.</span><span class="n">get_member</span><span class="p">(</span><span class="s1">&#39;nriver&#39;</span><span class="p">)</span>
+<span class="go">{&#39;rank&#39;: &#39;Overseer&#39;, &#39;exp&#39;: 1041963324}</span>
+</pre></div>
+</div>
+</dd>
+<dt>Getting the rank of member “Pedim” in his clan::</dt>
+<dd><div class="first last highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># Case-sensitive way</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">clan</span><span class="o">.</span><span class="n">member</span><span class="p">[</span><span class="s1">&#39;Pedim&#39;</span><span class="p">][</span><span class="s1">&#39;rank&#39;</span><span class="p">]</span>
+<span class="go">Owner</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># Case-insensitive way</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">clan</span><span class="o">.</span><span class="n">get_member</span><span class="p">(</span><span class="s1">&#39;pedim&#39;</span><span class="p">)[</span><span class="s1">&#39;rank&#39;</span><span class="p">]</span>
+<span class="go">Owner</span>
+</pre></div>
+</div>
+</dd>
+<dt>Getting the total player count of clan::</dt>
+<dd><div class="first last highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">clan</span><span class="o">.</span><span class="n">count</span>
+<span class="go">499</span>
+</pre></div>
+</div>
+</dd>
+<dt>Getting the average clan exp per member of clan::</dt>
+<dd><div class="first last highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">clan</span><span class="o">.</span><span class="n">avg_exp</span>
+<span class="go">303305888.44288576</span>
 </pre></div>
 </div>
 </dd>
@@ -218,6 +253,14 @@
     </div>
 </div>
 <script type="text/javascript">$('#searchbox').show(0);</script>
+
+
+
+
+
+
+
+
         </div>
       </div>
       <div class="clearer"></div>
@@ -226,8 +269,8 @@
       &copy;2018, John Victor.
       
       |
-      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.7.7</a>
-      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.11</a>
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.8.1</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
       
       |
       <a href="_sources/examples.rst.txt"

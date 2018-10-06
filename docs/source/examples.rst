@@ -1,8 +1,8 @@
 Examples
 =======================================
 
-* Installing:
-    - python -m pip install rs3clans
+* Installing::
+    - `python -m pip install rs3clans`
 
 Usage
 -----
@@ -12,48 +12,77 @@ Importing::
 
 Creating object Player passing its name as "nriver"::
     >>> player = rs3.Player(name="nriver")
+    >>> # If runemetrics is True when creating object Player
+    >>> # set_runemetrics_info() method will run by default
+    >>> player.rs3.Player(name="nriver", runemetrics=True)
 
 Creating Clan "clan" passing its name as the clan of "player" with set_exp ::
     >>> clan = rs3.Clan(name=player.clan, set_exp=True)
 
 Setting player's attributes that are obtained with Runemetric's API::
+    >>> # Not needed if runemetrics was True when creating Player
     >>> player.set_runemetrics_info()
 
-Printing the player name, real case-sensitive name if the user has his Runemetrics profile not Private, otherwise as passed when creating object::
-    >>> print(f"Player Name: {player.name}")
-    Player Name: NRiver
+Getting Player name, real case-sensitive name if the user has his Runemetrics profile not Private, otherwise as passed when creating object::
+    >>> player.name
+    NRiver
 
-Printing some player info in Dictionary format::
-    >>> print(f"Player Info: {player.info}")
-    Player Info: {'isSuffix': True, 'recruiting': True, 'name': 'NRiver', 'clan': 'Atlantis', 'title': 'the Liberator'}
+Generic player info::
+    >>> player
+    Name: NRiver Clan: Atlantis Exists: True
 
-Printing player's clan name::
-    >>> print(f"Player Clan: {player.clan}")
-    Player Clan: Atlantis
+Getting information of specific skills from the player::
+    >>> player.skill('agility').level
+    99
+    >>> # Can pass skill names as well as id
+    >>> # (8 = Woodcutting for example)
+    >>> player.skill(8).exp
+    14054178.6
+    >>> player.skill('AtTaCk').rank
+    68311
 
-Printing player's total Exp, or None if his Runemetrics profile is private::
-    >>> print(f"Player Total Exp: {player.exp}")
-    Player Total Exp: 1037291112
+Getting some player info in Dictionary format::
+    >>> player.info
+    {'isSuffix': True, 'recruiting': True, 'name': 'NRiver', 'clan': 'Atlantis', 'title': 'the Liberator'}
 
-Printing the total exp of clan::
-    >>> print(f"Clan Exp: {clan.exp}")
-    Clan Exp: 151349638333
+Getting player's clan name::
+    >>> player.clan
+    Atlantis
 
-Printing info in Dictionary format of the clan's member "Pedim" (requires case-sensitive name)::
-    >>> print(f"Clan info of 'Pedim': {clan.member['Pedim']}")
-    Clan info of 'Pedim': {'rank': 'Owner', 'exp': 739711654}
+Getting player's total Exp, or None if his Runemetrics profile is private::
+    >>> player.exp
+    1037291112
 
-Printing the rank of member "Pedim" in his clan::
-    >>> print(f"Rank of 'Pedim': {clan.member['Pedim']['rank']}")
-    Rank of 'Pedim': Owner
+Getting the total exp of clan::
+    >>> clan.exp
+    151349638333
 
-Printing the total player count of clan::
-    >>> print(f"Player Count of clan: {clan.count}")
-    Player Count of clan: 499
+Getting info in Dictionary format of the clan's member "Pedim" (case-sensitive)::
+    >>> clan.member['Pedim']
+    {'rank': 'Owner', 'exp': 739711654}
 
-Printing the average clan exp per member of clan::
-    >>> print(f"Average Clan Exp per member: {clan.avg_exp}")
-    Average Clan Exp per member: 303305888.44288576
+Getting info in Dictionary format of the clan's member "NRiver" (case insensitive)::
+    >>> clan.get_member('nRiVeR')
+    {'rank': 'Overseer', 'exp': 1041963324}
+    >>> clan.get_member('nriver')
+    {'rank': 'Overseer', 'exp': 1041963324}
+
+
+Getting the rank of member "Pedim" in his clan::
+    >>> # Case-sensitive way
+    >>> clan.member['Pedim']['rank']
+    Owner
+    >>> # Case-insensitive way
+    >>> clan.get_member('pedim')['rank']
+    Owner
+
+Getting the total player count of clan::
+    >>> clan.count
+    499
+
+Getting the average clan exp per member of clan::
+    >>> clan.avg_exp
+    303305888.44288576
 
 Handling exceptions/errors:
 ---------------------------
