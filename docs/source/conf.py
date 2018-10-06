@@ -29,7 +29,7 @@ version = ''
 # The full version, including alpha/beta/rc tags
 __version__ = ''
 
-with open("../../rs3clans/__init__.py") as f:
+with open("../../rs3clans/__version__.py") as f:
     exec(f.read())
 
 release = __version__
