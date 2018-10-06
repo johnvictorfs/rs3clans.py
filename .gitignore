@@ -4,3 +4,19 @@ __pycache__/rs3clans.cpython-35.pyc
 .idea
 local
 __pycache__
+
+# Distribution / packaging
+bin/
+build/
+develop-eggs/
+dist/
+eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+*.egg-info/
+.installed.cfg
+*.egg
+.eggs

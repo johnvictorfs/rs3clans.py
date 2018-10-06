@@ -25,7 +25,7 @@ Setting player's attributes that are obtained with Runemetric's API::
 
 Getting Player name, real case-sensitive name if the user has his Runemetrics profile not Private, otherwise as passed when creating object::
     >>> player.name
-    NRiver
+    'NRiver'
 
 Generic player info::
     >>> player
@@ -47,7 +47,7 @@ Getting some player info in Dictionary format::
 
 Getting player's clan name::
     >>> player.clan
-    Atlantis
+    'Atlantis'
 
 Getting player's total Exp, or None if his Runemetrics profile is private::
     >>> player.exp
@@ -71,10 +71,10 @@ Getting info in Dictionary format of the clan's member "NRiver" (case insensitiv
 Getting the rank of member "Pedim" in his clan::
     >>> # Case-sensitive way
     >>> clan.member['Pedim']['rank']
-    Owner
+    'Owner'
     >>> # Case-insensitive way
     >>> clan.get_member('pedim')['rank']
-    Owner
+    'Owner'
 
 Getting the total player count of clan::
     >>> clan.count

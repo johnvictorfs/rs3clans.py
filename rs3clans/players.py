@@ -27,16 +27,24 @@ class Player:
     ----------
     name : str
         Name of the Player, gets set to case-sensitive name later if his RuneMetrics profile is not private.
+    metrics_info : dict
+        Runemetrics Info in dictionary format about the player.
     exp : int or None
         Total Exp of the player, or None if private_profile is True.
     combat_level : int or None
         Total Combat Level of the player, or None if private_profile is True.
     total_level : int or None
         Total Skill Level of the player, or None if private_profile is True.
+    quests_not_started : int
+        Number of quests the player has not started.
+    quests_started : int
+        Number of the quests the player has started.
+    quests_complete : int
+        Number of quests the player has completed.
     private_profile : bool
-        If the player has a private RuneMetrics profile or not.
+        Whether the player has a private RuneMetrics profile or not.
     exists : bool
-        If the player exists or not.
+        Whether the player exists or not.
     """
 
     def __init__(self, name, runemetrics=True):
