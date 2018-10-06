@@ -228,30 +228,6 @@ class Player:
             return json_info
 
     def skill(self, skill):
-        """
-
-        Parameters
-        ----------
-        skill : str or int
-            Skill name or id to get info of
-
-        Usage
-        ----------
-        >>> # Example of usage of the method skill()
-        >>> player = rs3clans.Player('NRiver')
-        >>> agility_level = player.skill('agility').level
-        >>> woodcutting_exp = player.skill(8).exp
-        >>> attack_rank = player.skill('AtTaCk').rank
-
-        Returns
-        ----------
-        Skill
-            Attributes
-            ----------
-            exp : Total exp the Player has in that skill (aliased as 'xp' as well)
-            level: The level the Player has in that skill
-            rank: The rank the Player has in that skill
-        """
         skills_index = {
             0: 'attack',
             1: 'defence',
