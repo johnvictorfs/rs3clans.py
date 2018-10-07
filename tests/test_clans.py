@@ -59,8 +59,10 @@ def test_clan_exception():
         clans.Clan('clan_that_cannot_possibly_exist_999999')
 
 
-def test_clan_exp(valid_clan, valid_clan_exp):
-    assert valid_clan.exp == valid_clan_exp
+def test_clan_exp(valid_clan):
+    clan_list = get_clan_list()
+    clan_exp = get_clan_exp(clan_list)
+    assert valid_clan.exp == clan_exp
 
 
 def test_clan_leader(valid_clan, valid_clan_list):
