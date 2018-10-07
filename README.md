@@ -1,7 +1,7 @@
 # rs3clans.py
 [![PyPI](https://img.shields.io/pypi/v/rs3clans.svg)](https://pypi.org/project/rs3clans/) [![PyPI - Python Version](https://img.shields.io/pypi/pyversions/rs3clans.svg)](https://pypi.org/project/rs3clans/) [![Build Status](https://travis-ci.org/johnvictorfs/rs3clans.py.svg?branch=master)](https://travis-ci.org/johnvictorfs/rs3clans.py)
 
-A Python 3 module wrapper for RuneScape 3 Clan's API
+A Python 3 module wrapper for RuneScape 3 API
 
 ***
 ## Requirements:
