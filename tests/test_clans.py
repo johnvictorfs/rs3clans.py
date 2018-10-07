@@ -62,7 +62,7 @@ def test_clan_exception():
 def test_clan_exp(valid_clan):
     clan_list = get_clan_list(CLAN_NAME)
     clan_exp = get_clan_exp(clan_list)
-    assert valid_clan.exp == clan_exp
+    assert (valid_clan.exp - clan_exp) < 10_000_000
 
 
 def test_clan_leader(valid_clan, valid_clan_list):
