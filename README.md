@@ -115,6 +115,7 @@ False
 >> > player.suffix
 True
 ```
+
 - Getting a player's clan
 ```python
 >> > player.clan
