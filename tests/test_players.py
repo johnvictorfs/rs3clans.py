@@ -22,7 +22,6 @@ def valid_player():
 
 def test_player_doesnt_exist():
     player = players.Player('non_existent_player_99999')
-    print(player.exists)
     assert not player.exists
 
 
