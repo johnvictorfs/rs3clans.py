@@ -79,12 +79,12 @@ class Clan:
         self.count = None
         self.avg_exp = None
 
-        if set_exp is True:
+        if set_exp:
             self.exp = self._list_sum()
-        if set_dict is True:
+        if set_dict:
             self.member = self.dict_lookup()
             self.count = len(self.member)
-        if set_exp is True and set_dict is True:
+        if set_exp and set_dict:
             self.avg_exp = self.exp / self.count
 
     def list_lookup(self):
