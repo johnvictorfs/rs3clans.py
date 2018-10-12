@@ -12,6 +12,7 @@ recommonmark = "==0.4.0"
 numpydoc = ">=0.8.0"
 sphinx_rtd_theme = ">=0.3.1"
 pytest = ">=3.8.2"
+twine = "*"
 
 [requires]
 python_version = "3.7"

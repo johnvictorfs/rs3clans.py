@@ -139,7 +139,7 @@ class Clan:
         clan_dict = {}
         for row in clan_list[1:]:
             user_rank = row[1]
-            username = row[0]
+            username = row[0].replace('\xa0', ' ')
             user_exp = int(row[2])
 
             clan_dict[username] = {
