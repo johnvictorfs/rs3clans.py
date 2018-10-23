@@ -166,6 +166,7 @@ class Clan:
         """
         for key, value in self.member.items():
             if key.lower() == name.lower():
+                value['name'] = key
                 return value
 
     def _list_sum(self):

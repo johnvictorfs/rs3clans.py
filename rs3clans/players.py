@@ -1,6 +1,6 @@
 # Standard Imports
-import urllib.request
 import json
+import urllib.request
 
 # Non-standard Imports
 import requests
@@ -65,16 +65,10 @@ class Player:
         self.suffix = self.info['is_suffix']
         self.title = self.info['title']
 
-        # The 2 checks below are band-aid fixes that marks self.exists as False even if 'runemetrics' parameter
+        # TODO: The check below is a band-aid fix that marks self.exists as False even if 'runemetrics' parameter
         # is passed as False when creating Player object, a real way to check if a player exists needs to be added
-        _banned_chars = ('!', '@', '#', '$', '%', '¨', '&', '*', '(', ')', '-', '[', ']', ',', '.', '~', '^'
-                         '{', '}', ':', ';', "'", '"', 'ç', 'Ç', '?', '/', '°', '|', '\\', '`', '=', '+', '¬'
-                         '¹', '²', '³', '£', '¢', 'ª', 'º')
-        if len(self.name) > 12:
+        if not self._valid_username(self.name):
             self.exists = False
-        for char in _banned_chars:
-            if char in self.name:
-                self.exists = False
 
         if runemetrics:
             self.set_runemetrics_info()
@@ -83,6 +77,16 @@ class Player:
             self.clan = self.info['clan']
         except KeyError:
             self.clan = None
+
+    def _valid_username(self, username):
+        if len(username) > 12:
+            return False
+        banned_chars = (
+            '!', '@', '#', '$', '%', '¨', '&', '*', '(', ')', '-', '[', ']', ',', '.', '~', '^'
+            '{', '}', ':', ';', "'", '"', 'ç', 'Ç', '?', '/', '°', '|', '\\', '`', '=', '+', '¬'
+            '¹', '²', '³', '£', '¢', 'ª', 'º')
+        if any(char in username for char in banned_chars):
+            return False
 
     def _raw_info(self):
         """

@@ -3,6 +3,8 @@
 
 A Python 3 module wrapper for RuneScape 3 API
 
+- [Change Log](CHANGELOG.md)
+
 ***
 ## Requirements:
 
@@ -146,7 +148,7 @@ True
 ```python
 >>> # Case-sensitive
 >>> clan.member['NRiver']
-{'rank': 'Overseer', 'exp': 1041963324}
+{'rank': 'Overseer', 'exp': 1043065027}
 >>> clan.member['NRiver']['rank']
 'Overseer'
 ```
@@ -154,7 +156,7 @@ True
 ```python
 >>> # Case-insensitive
 >>> clan.get_member('nriver')
-{'rank': 'Overseer', 'exp': 1041963324}
+{'rank': 'Overseer', 'exp': 1043065027, 'name': 'NRiver'}
 >>> clan.get_member('nRiVeR')['rank']
 'Overseer'
 ```
@@ -171,11 +173,4 @@ True
 303305888.44288576
 ```
 
-
 ***
-
-### Documentation:
-
-- Documentations are currently outdated because of issues with readthedocs that i can't be arsed to do band-aid fixes to "fix", use the examples above instead
-
-[![Docs](https://readthedocs.org/projects/rs3clanspy/badge/?version=latest)](https://rs3clanspy.readthedocs.io/en/latest/?badge=latest)
