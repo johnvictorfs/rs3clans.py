@@ -87,6 +87,7 @@ class Player:
             '¹', '²', '³', '£', '¢', 'ª', 'º')
         if any(char in username for char in banned_chars):
             return False
+        return True
 
     def _raw_info(self):
         """

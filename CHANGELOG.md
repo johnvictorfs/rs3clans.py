@@ -1,5 +1,12 @@
 # rs3clans.py Change Log
 
+[![PyPI](https://img.shields.io/pypi/v/rs3clans.svg)](https://pypi.org/project/rs3clans/) [![PyPI - Python Version](https://img.shields.io/pypi/pyversions/rs3clans.svg)](https://pypi.org/project/rs3clans/) [![Build Status](https://travis-ci.org/johnvictorfs/rs3clans.py.svg?branch=master)](https://travis-ci.org/johnvictorfs/rs3clans.py)
+
+### 1.0.4
+- Fixed `Player.exists()` method always returning False unless `runemetrics` argument was passed as true or `Player.set_runemetrics_info()` was called
+
+***
+
 ### 1.0.3
 - `Clan.get_member(name)` method now returns the name of the player found in the dict as below:
     ```python3
