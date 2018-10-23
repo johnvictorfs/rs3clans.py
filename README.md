@@ -14,10 +14,21 @@ A Python 3 module wrapper for RuneScape 3 API
 
 ***
 
-## Setup:
+## Setup with pip:
 
 ```bash
 $ python3 -m pip install rs3clans
+```
+
+***
+
+## Manual Setup:
+*(Requires [`Git`](https://git-scm.com/))*
+```bash
+$ cd /your/projects/dir/
+$ git clone https://github.com/johnvictorfs/rs3clans.py
+$ cd rs3clans.py
+$ python3 setup.py install
 ```
 
 ***
@@ -172,5 +183,47 @@ True
 >>> clan.avg_exp
 303305888.44288576
 ```
+
+***
+
+## Contributing:
+
+- [Fork](https://github.com/johnvictorfs/rs3clans.py/fork) the repository
+
+- Guidelines:
+    - Follow Pep8 with the exception of `E501 (line too long)`
+
+- Install Dev dependencies
+    - With pipenv
+        ```bash
+        $ pipenv install --dev
+        ```
+    - Without pipenv
+        ```bash
+        $ pip install -r requirements-dev.txt
+        ```
+
+- Run the tests to make sure everything is ok
+    ```bash
+    $ pytest
+    ```
+
+- Send a GitHub Pull Request to the repository's [`master branch`](https://github.com/johnvictorfs/rs3clans.py/tree/master)
+
+- Make your changes to the code in the directory `rs3clans.py/rs3clans/`
+
+- Add necessary tests to the `rs3clans.py/tests/` directory ([`pytest docs`](https://docs.pytest.org/en/latest/))
+
+- Run the tests again
+    ```bash
+    $ pytest
+    ```
+
+- Also run `flake8` just to check if the code style is also fine
+    ```bash
+    $ flake8 --ignore=E501
+    ```
+
+- If everything went fine then send a [Pull Request](https://github.com/johnvictorfs/rs3clans.py/pulls)
 
 ***
