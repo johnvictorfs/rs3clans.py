@@ -188,10 +188,10 @@ True
 
 ## Contributing:
 
-- [Fork](https://github.com/johnvictorfs/rs3clans.py/fork) the repository
-
 - Guidelines:
     - Follow Pep8 with the exception of `E501 (line too long)`
+
+- [Fork](https://github.com/johnvictorfs/rs3clans.py/fork) the repository
 
 - Install Dev dependencies
     - With pipenv
