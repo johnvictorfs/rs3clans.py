@@ -8,9 +8,9 @@ A Python 3 module wrapper for RuneScape 3 API
 ***
 ## Requirements:
 
-- Python 3.6+
+- [`Python 3.6+`](https://www.python.org/)
 
-- `requests>=2.19.1`
+- [`requests>=2.19.1`](http://docs.python-requests.org/en/master/)
 
 ***
 
