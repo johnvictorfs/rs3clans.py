@@ -64,7 +64,9 @@ class Clan:
     count : int
         The number of members in the Clan.
     avg_exp : int or None
-         The average clan exp per member in the Clan, or None if either set_exp or set_dict arguments are False.
+        The average clan exp per member in the Clan, or None if either set_exp or set_dict arguments are False.
+    hiscores_status_code : int
+        The status code of the GET request to RS3 Clan Hiscores (members lite) API.
 
     Raises
     ------
@@ -78,6 +80,8 @@ class Clan:
         self.member = None
         self.count = None
         self.avg_exp = None
+
+        self.hiscores_status_code = None
 
         if set_exp:
             self.exp = self._list_sum()
@@ -102,12 +106,21 @@ class Clan:
                 ... ['Pedim', 'Owner', '739711654', '2'],
                 ... ['Tusoroxo', 'Deputy Owner', '1132958333', '0'],
                 ... ]
+
+        Raises
+        ------
+        ConnectionError
+            If connecting to the RS3 clan-hiscores/members_lite API was not possible.
+
         """
         clan_url = f'http://services.runescape.com/m=clan-hiscores/members_lite.ws?clanName={self.name}'
 
         with requests.Session() as session:
             download = session.get(clan_url)
             decoded = download.content.decode('windows-1252')
+            self.hiscores_status_code = download.status_code
+            if download.status_code != 200:
+                raise ConnectionError(f'Not able to connect to RS3 clan-hiscores/members_lite API. Status code: {download.status_code}')
             clan_list = list(csv.reader(decoded.splitlines(), delimiter=','))
             if clan_list[0][0] != "Clanmate":
                 raise ClanNotFoundError(f"Couldn't find clan: {self.name}")
@@ -199,25 +212,32 @@ class Clan:
     def __str__(self):
         return f"Name: {self.name} Exp: {self.exp} Avg. Exp: {self.avg_exp} Number of Members: {self.count}"
 
+    def __iter__(self):
+        """
+        Iterates through `self.member` dictionary attribute, if `set_dict` was passed as True when creating `Clan` object.
 
-if __name__ == '__main__':
-    # Create Clan with the name "Atlantis"
-    clan = Clan(name="Atlantis", set_exp=True)
-
-    # Info from member "NRiver" (case-sensitive)
-    print(clan.member['NRiver'])
-
-    # Total Exp of the clan
-    print(clan.exp)
-
-    # Average Clan Exp per Member of the clan
-    print(clan.avg_exp)
-
-    # Clan Name as passed when creating object Clan
-    print(clan.name)
-
-    # Number of members in clan
-    print(clan.count)
-
-    clan_two = Clan("okafbjhvfjsdhbsdhfhbqjfbqwf")
-    print(clan.name)
+        Yelds
+        -----
+        tuple
+            Tuple contains the key of each item in `Clan.member` attribute and then its values::
+                >>> clan = rs3clans.Clan('atlantis')
+                >>> for member in clan:
+                ...     print(member)
+                ...
+                ('Pedim', {'rank': 'Owner', 'exp': 962627411})
+                ('Tusoroxo', {'rank': 'Deputy Owner', 'exp': 1157686923})
+                ('Acriano', {'rank': 'Overseer', 'exp': 1857267476})
+                ('Cogu', {'rank': 'Overseer', 'exp': 1576814120})
+                ('Black bullet', {'rank': 'Overseer', 'exp': 909580894})
+                ('NRiver', {'rank': 'Overseer', 'exp': 1043065027})
+                (...)
+                >>> clan = rs3clans.Clan('atlantis', set_dict=False)
+                >>> for member in clan:
+                ...     print(member)
+                >>>
+                ...
+        """
+        if self.member:
+            for key, value in self.member.items():
+                yield key, value
+        return

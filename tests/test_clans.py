@@ -71,3 +71,7 @@ def test_clan_leader(valid_clan, valid_clan_list):
         if value['rank'] == 'Owner':
             valid_clan_leader = key
     assert valid_clan_list[1][0] == valid_clan_leader
+
+
+def test_status_codes(valid_clan):
+    assert valid_clan.hiscores_status_code == 200

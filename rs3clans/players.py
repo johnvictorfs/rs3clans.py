@@ -1,6 +1,5 @@
 # Standard Imports
 import json
-import urllib.request
 
 # Non-standard Imports
 import requests
@@ -45,6 +44,15 @@ class Player:
         Whether the player has a private RuneMetrics profile or not.
     exists : bool
         Whether the player exists or not.
+    details_status_code : int
+        The status code of the GET request to RS3 Player Details API
+    runemetrics_status_code : int
+        The status code of the GET request to RS3 Player Runemetrics API
+
+    Raises
+    ------
+    ConnectionError
+        If connecting to any of RS3's API related to players fails.
     """
 
     def __init__(self, name, runemetrics=True):
@@ -60,6 +68,9 @@ class Player:
         self.skill_values = None
         self.private_profile = True
         self.exists = True
+
+        self.details_status_code = None
+        self.runemetrics_status_code = None
 
         self.info = self._dict_info()
         self.suffix = self.info['is_suffix']
@@ -79,6 +90,20 @@ class Player:
             self.clan = None
 
     def _valid_username(self, username):
+        """
+        Checks if a username is in the valid character limit set by Jagex
+        and if it doesn't have any invalid characters in it.
+
+        Parameters
+        ----------
+        username : str
+            The username to be checked if valid or not
+
+        Returns
+        -------
+        bool
+            True if the username is valid, False if it is not
+        """
         if len(username) > 12:
             return False
         banned_chars = (
@@ -98,14 +123,21 @@ class Player:
         str
             JsonP information on player, converted to string.
 
+        Raises
+        ------
+        ConnectionError
+            If connecting to the RS3 Runemetrics profile API was not possible.
+
         ------
         .. note:: Has to be formatted correctly into Json or other formats to be worked with properly first.
         """
 
-        info_url = (f"http://services.runescape.com/m=website-data/playerDetails.ws?names=%5B%22{self.name}"
-                    f"%22%5D&callback=jQuery000000000000000_0000000000&_=0")
-        client = urllib.request.urlopen(info_url)
-        return str(client.read())
+        info_url = (f"http://services.runescape.com/m=website-data/playerDetails.ws?names=%5B%22{self.name}%22%5D&callback=jQuery000000000000000_0000000000&_=0")
+        response = requests.get(info_url)
+        self.details_status_code = response.status_code
+        if response.status_code != 200:
+            raise ConnectionError(f'Not able to connect to RS3 playerDetails API. Status code: {response.status_code}')
+        return str(response.content)
 
     def _dict_info(self):
         """
@@ -226,10 +258,18 @@ class Player:
         ------
         dict or bool
             Runemetrics player info if the player profile is public, or False if it is Private.
+
+        Raises
+        ------
+        ConnectionError
+            If connecting to the RS3 Runemetrics profile API was not possible.
         """
         user_name = self.name.replace(' ', '%20')
         info_url = f"https://apps.runescape.com/runemetrics/profile/profile?user={user_name}&activities=0"
         response = requests.get(info_url)
+        self.runemetrics_status_code = response.status_code
+        if response.status_code != 200:
+            raise ConnectionError(f'Not able to connect to RS3 Runemetrics player profile API. Status code: {response.status_code}')
         json_info = response.json()
         try:
             if json_info['error'] == 'PROFILE_PRIVATE':
@@ -346,40 +386,3 @@ class Skill:
 
     def __str__(self):
         return self.name
-
-
-if __name__ == '__main__':
-    import time
-    start = time.time()
-
-    # Creating Player with the name "nriver"
-    player = Player("nriver")
-
-    # Setting attributes that are obtained with runemetric's API
-    player.set_runemetrics_info()
-
-    # Player name (Actual case-sensitive name if Runemetrics profile isn't private, otherwise it will be as passed)
-    print(player.name)
-
-    # Player info
-    print(player.info)
-
-    # Player clan
-    print(player.clan)
-
-    # Player title
-    print(player.title)
-
-    # If the player's title is a suffix or not
-    print(player.suffix)
-
-    # Prints the total player exp (if his Runemetrics profile is private it will output 0)
-    print(player.exp)
-
-    # Prints the Combat level of player (if his Runemetrics profile is private it will output 0)
-    print(player.combat_level)
-
-    # Prints the Total level of player (if his Runemetrics profile is private it will output 0)
-    print(player.total_level)
-
-    print(f"Took: {time.time() - start:.4f}")

@@ -82,3 +82,8 @@ def test_skill_level(valid_player, skill, result):
                          ])
 def test_skill_exp(valid_player, skill, result):
     assert valid_player.skill(skill).exp == result
+
+
+def test_status_codes(valid_player):
+    assert valid_player.runemetrics_status_code == 200
+    assert valid_player.details_status_code == 200
