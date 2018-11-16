@@ -211,8 +211,8 @@ class Clan:
         clan_dict = self.dict_lookup()
         return sum(members['exp'] for members in clan_dict.values())
 
-    def __str__(self):
-        return f"Name: {self.name} Exp: {self.exp} Avg. Exp: {self.avg_exp} Number of Members: {self.count}"
+    def __repr__(self):
+        return f"Clan(name={repr(self.name)}, exp={self.exp}, avg_exp={self.avg_exp}, count={self.count})"
 
     def __iter__(self):
         """

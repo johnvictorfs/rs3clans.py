@@ -363,8 +363,8 @@ class Player:
                         if _skill['id'] == skill:
                             return Skill(name=skills_index[skill], skill=_skill)
 
-    def __str__(self):
-        return f"Name: {self.name} Clan: {self.clan} Exists: {self.exists}"
+    def __repr__(self):
+        return f"Player(name={repr(self.name)}, clan={repr(self.clan)}, exists={self.exists})"
 
 
 class Skill:
