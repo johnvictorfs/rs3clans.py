@@ -55,7 +55,7 @@ class Player:
         If connecting to any of RS3's API related to players fails.
     """
 
-    def __init__(self, name, runemetrics=True):
+    def __init__(self, name: str, runemetrics: bool = True):
 
         self.name = name
         self.metrics_info = None
@@ -89,7 +89,8 @@ class Player:
         except KeyError:
             self.clan = None
 
-    def _valid_username(self, username):
+    @staticmethod
+    def _valid_username(username: str):
         """
         Checks if a username is in the valid character limit set by Jagex
         and if it doesn't have any invalid characters in it.
@@ -108,8 +109,9 @@ class Player:
             return False
         banned_chars = (
             '!', '@', '#', '$', '%', '¨', '&', '*', '(', ')', '-', '[', ']', ',', '.', '~', '^'
-            '{', '}', ':', ';', "'", '"', 'ç', 'Ç', '?', '/', '°', '|', '\\', '`', '=', '+', '¬'
-            '¹', '²', '³', '£', '¢', 'ª', 'º')
+                                                                                            '{', '}', ':', ';', "'",
+            '"', 'ç', 'Ç', '?', '/', '°', '|', '\\', '`', '=', '+', '¬'
+                                                                    '¹', '²', '³', '£', '¢', 'ª', 'º')
         if any(char in username for char in banned_chars):
             return False
         return True
@@ -132,7 +134,8 @@ class Player:
         .. note:: Has to be formatted correctly into Json or other formats to be worked with properly first.
         """
 
-        info_url = (f"http://services.runescape.com/m=website-data/playerDetails.ws?names=%5B%22{self.name}%22%5D&callback=jQuery000000000000000_0000000000&_=0")
+        info_url = (f"http://services.runescape.com/m=website-data/"
+                    f"playerDetails.ws?names=%5B%22{self.name}%22%5D&callback=jQuery000000000000000_0000000000&_=0")
         response = requests.get(info_url)
         self.details_status_code = response.status_code
         if response.status_code != 200:
@@ -269,7 +272,8 @@ class Player:
         response = requests.get(info_url)
         self.runemetrics_status_code = response.status_code
         if response.status_code != 200:
-            raise ConnectionError(f'Not able to connect to RS3 Runemetrics player profile API. Status code: {response.status_code}')
+            raise ConnectionError(
+                f'Not able to connect to RS3 Runemetrics player profile API. Status code: {response.status_code}')
         json_info = response.json()
         try:
             if json_info['error'] == 'PROFILE_PRIVATE':
@@ -283,7 +287,7 @@ class Player:
             self.private_profile = False
             return json_info
 
-    def skill(self, skill):
+    def skill(self, skill: str or int):
         """
         Gets information on a specific skill from the Player
 
@@ -349,7 +353,7 @@ class Player:
             skill = int(skill)
             for _skill in self.skill_values:
                 if _skill['id'] == skill:
-                    return Skill(name=skills_index[skill], skill_dict=_skill)
+                    return Skill(name=skills_index[skill], skill=_skill)
         except ValueError:
             skill = skill.lower()
             for index, value in skills_index.items():
@@ -357,30 +361,30 @@ class Player:
                     skill = index
                     for _skill in self.skill_values:
                         if _skill['id'] == skill:
-                            return Skill(name=skills_index[skill], skill_dict=_skill)
+                            return Skill(name=skills_index[skill], skill=_skill)
 
     def __str__(self):
         return f"Name: {self.name} Clan: {self.clan} Exists: {self.exists}"
 
 
 class Skill:
-    def __init__(self, name, skill_dict):
+    def __init__(self, name: str, skill: dict):
         self.name = name
         try:
-            self.exp = skill_dict['xp'] / 10
+            self.exp = skill['xp'] / 10
         except KeyError:
             self.exp = None
         self.xp = self.exp
         try:
-            self.level = skill_dict['level']
+            self.level = skill['level']
         except KeyError:
             self.level = None
         try:
-            self.rank = skill_dict['rank']
+            self.rank = skill['rank']
         except KeyError:
             self.rank = None
         try:
-            self.id = skill_dict['id']
+            self.id = skill['id']
         except KeyError:
             self.id = None
 
