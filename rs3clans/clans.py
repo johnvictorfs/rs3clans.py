@@ -74,7 +74,7 @@ class Clan:
         If an invalid clan name is passed when creating object Clan.
     """
 
-    def __init__(self, name, set_exp=False, set_dict=True):
+    def __init__(self, name: str, set_exp: bool = False, set_dict: bool = True):
         self.name = name
         self.exp = None
         self.member = None
@@ -120,7 +120,9 @@ class Clan:
             decoded = download.content.decode('windows-1252')
             self.hiscores_status_code = download.status_code
             if download.status_code != 200:
-                raise ConnectionError(f'Not able to connect to RS3 clan-hiscores/members_lite API. Status code: {download.status_code}')
+                raise ConnectionError(
+                    f'Not able to connect to RS3 clan-hiscores/members_lite API. Status code: {download.status_code}'
+                )
             clan_list = list(csv.reader(decoded.splitlines(), delimiter=','))
             if clan_list[0][0] != "Clanmate":
                 raise ClanNotFoundError(f"Couldn't find clan: {self.name}")
@@ -128,7 +130,7 @@ class Clan:
                 row[0] = row[0].replace(r"\xa0", " ")
             return clan_list
 
-    def dict_lookup(self, rank_key="rank", exp_key="exp"):
+    def dict_lookup(self, rank_key: str = "rank", exp_key: str = "exp"):
         """
 
         Used for getting all information available from a clan using Rs3's Clan API.
@@ -161,7 +163,7 @@ class Clan:
             }
         return clan_dict
 
-    def get_member(self, name):
+    def get_member(self, name: str):
         """
 
         Used for searching information about a clan member by passing in its name case insensitively.
@@ -214,12 +216,13 @@ class Clan:
 
     def __iter__(self):
         """
-        Iterates through `self.member` dictionary attribute, if `set_dict` was passed as True when creating `Clan` object.
+        Iterates through `self.member` dict attribute, if `set_dict` was passed True when instancing `Clan` object.
 
         Yelds
         -----
         tuple
             Tuple contains the key of each item in `Clan.member` attribute and then its values::
+                >>> import rs3clans
                 >>> clan = rs3clans.Clan('atlantis')
                 >>> for member in clan:
                 ...     print(member)
