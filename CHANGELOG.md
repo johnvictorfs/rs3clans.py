@@ -4,6 +4,23 @@
 
 ***
 
+### 1.0.6
+
+- Changed all `__str__` methods to just `__repr__` methods that are more concise.
+```python3
+>>> # Old
+>>> import rs3clans
+>>> print(rs3clans.Player('nriver')
+>>> Name: NRiver Clan: Atlantis Exists: True
+
+>>> # New
+>>> import rs3clans
+>>> rs3clans.Player('nriver')
+>>> Player(name='NRiver', clan='Atlantis', exists=True)
+```
+
+***
+
 ### 1.0.5
 - `Clan` objects can now be iterated through as if you were iterating over `Clan.member.items()` (requires `set_dict` parameter when creating `Clan` object to be `True` (`True` by default))
     - Example:
