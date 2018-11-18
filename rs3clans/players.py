@@ -205,15 +205,16 @@ class Player:
         # Otherwise it will get the correct case-sensitive name from his runemetrics profile.
         # Some other info like Total exp, Combat level and Total level will be created as well.
         self.metrics_info = self.runemetrics_info()
-        if self.metrics_info is not False:
-            self.name = self.metrics_info['name']
-            self.exp = self.metrics_info['totalxp']
-            self.combat_level = self.metrics_info['combatlevel']
-            self.total_level = self.metrics_info['totalskill']
-            self.quests_not_started = self.metrics_info['questsnotstarted']
-            self.quests_started = self.metrics_info['questsstarted']
-            self.quests_complete = self.metrics_info['questscomplete']
-            self.skill_values = self.metrics_info['skillvalues']
+        if self.metrics_info:
+            if self.metrics_info.get('name'):
+                self.name = self.metrics_info.get('name')
+            self.exp = self.metrics_info.get('totalxp')
+            self.combat_level = self.metrics_info.get('combatlevel')
+            self.total_level = self.metrics_info.get('totalskill')
+            self.quests_not_started = self.metrics_info.get('questsnotstarted')
+            self.quests_started = self.metrics_info.get('questsstarted')
+            self.quests_complete = self.metrics_info.get('questscomplete')
+            self.skill_values = self.metrics_info.get('skillvalues')
 
     def runemetrics_info(self):
         """
@@ -278,15 +279,14 @@ class Player:
             raise ConnectionError(
                 f'Not able to connect to RS3 Runemetrics player profile API. Status code: {response.status_code}')
         json_info = response.json()
-        try:
-            if json_info['error'] == 'PROFILE_PRIVATE':
-                self.private_profile = True
-                return False
-            if json_info['error'] == 'NO_PROFILE':
-                self.private_profile = False
-                self.exists = False
-                return False
-        except KeyError:
+        if json_info.get('error') == 'PROFILE_PRIVATE':
+            self.private_profile = True
+            return None
+        elif json_info.get('error') == 'NO_PROFILE':
+            self.private_profile = False
+            self.exists = False
+            return None
+        else:
             self.private_profile = False
             return json_info
 

@@ -4,6 +4,12 @@
 
 ***
 
+### 1.0.8
+
+- Fixed issue with not being able to create a `Player` on some specific cases if `runemetrics` argument was passed as `True` and its name had spaces on it
+
+***
+
 ### 1.0.7
 
 - Passing a `None` type value to `Clan` and `Player`'s `name` argument now raises `TypeError` as it should

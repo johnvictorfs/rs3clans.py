@@ -20,8 +20,18 @@ def valid_player():
     return valid_player
 
 
+def test_player_doesnt_exist_no_runemetrics():
+    player = players.Player('non_existent_player_99999', runemetrics=False)
+    assert not player.exists
+
+
 def test_player_doesnt_exist():
     player = players.Player('non_existent_player_99999')
+    assert not player.exists
+
+
+def test_player_doesnt_exist_with_spaces():
+    player = players.Player('non existent player with spaces')
     assert not player.exists
 
 
