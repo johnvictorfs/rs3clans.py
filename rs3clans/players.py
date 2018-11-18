@@ -69,6 +69,9 @@ class Player:
         self.private_profile = True
         self.exists = True
 
+        if not self.name:
+            raise TypeError("Player name cannot be null.")
+
         self.details_status_code = None
         self.runemetrics_status_code = None
 

@@ -59,6 +59,11 @@ def test_clan_exception():
         clans.Clan('clan_that_cannot_possibly_exist_999999')
 
 
+def test_none_clan_name():
+    with pytest.raises(TypeError):
+        clans.Clan(name=None)
+
+
 def test_clan_exp(valid_clan):
     clan_list = get_clan_list(CLAN_NAME)
     clan_exp = get_clan_exp(clan_list)

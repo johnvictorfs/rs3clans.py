@@ -81,6 +81,9 @@ class Clan:
         self.count = None
         self.avg_exp = None
 
+        if not self.name:
+            raise TypeError("Clan name cannot be null.")
+
         self.hiscores_status_code = None
 
         if set_exp:

@@ -4,6 +4,12 @@
 
 ***
 
+### 1.0.7
+
+- Passing a `None` type value to `Clan` and `Player`'s `name` argument now raises `TypeError` as it should
+
+***
+
 ### 1.0.6
 
 - Changed all `__str__` methods to just `__repr__` methods that are more concise.
