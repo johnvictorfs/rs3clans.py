@@ -16,11 +16,10 @@ script:
   - poetry run flake8 --ignore=E501 rs3clans/
   - poetry run pytest
 before_deploy:
-  - poetry config http-basic.pypi $PYPI_USER $PYPI_PASS
   - poetry build
 deploy:
   provider: script
-  script: poetry publish
+  script: poetry publish -u $PYPI_USER -p $PYPI_PASS
   skip_cleanup: true
   on:
     tags: true
