@@ -1,10 +1,26 @@
 language: python
 sudo: required
 dist: xenial
+env:
+  global:
+    - secure: EGI+QVabcF2Sk+nIgkjkA3ZyUXfCJBecTVtsQe4Q0ujiKSXQeRCM0AMMW6ZKbKZtOwXllt88KywMBiIMf/KqWIS0Wrbq7SISzSZKan7AdeHWziaZvgNaXgBNhpI7UgdLBt55VxJQG61QTQvb3qQYEQ4jPyC+cLBXHX66a6iwWGQHtPgePTZ4bPS5BS9SbffU6oOPnAsZvsuN9jCDYFVLM6TOswzny9qAmE2/PjoYMXWNGztbtHY1v2AnjR/3w+IQXJodyb1wMVob27hCITvGg8nBoLqoNrHD1HTJbt0tZLerwKFM6LJM0z15P7wqLNsmJlInu7wH/o2x2SSrt5zFEqEe4qnBguXP45Zg11OYL7oNecO1flOYbaVZsbCCTHY9tW10k4vtTj3IIBm5XsuwiFPtsl4AH3pACfG7kRyxZNm9bReJSBgGabjZN8uJEYFbjGvpVTmKeYEefPrFEwR/vXrLi74PE//DF1OrrQGkziYh7ID91RrizVYwpUL0XKrAjfzNgZovp6HI21rOGGO8CPcqojmTHDuL1RS0QEIg95P3z4Ncz55q4nS+tsLdx4c50qkytz93ClVHzxESzXMcq7cbLDymzG5jl+nNOEU3mS+/qb9QLJ0KNnqqX9NcIqC7IOipm5x9bNKLcmXgCdtot7dtmM+JQtSShdCl/FR4Pa8=
+    - secure: uyFzchcTbK0ph34gzsmT36tIAQuDDmzabF9Ww/rZ3DrwNgpPxKsWU5VeignYp8d33E4Z0waX7KAVnNh/tQOydwZJ/h3Cd2UeBnYoPFXvVhFed/IX8j7n/JkGTd20PR21k9eTHv/OJKLFLncTwQiBIow4M0EFLp10kz7eDHFCrvw2sfKuJb+38Igz4hyHg7GmgONr0y9VKz5+tVGW0qaqCUkYTyEMZ9+3PCnClLXEpXHETl1MQgIrBhDD3varPs8xHrLqDnjsPrr0sOI6e99Gwp+Q2MC2nVnkzZCpIVVmQvELzo77trXY4WwG0mwkMTPB/nWqTt8Xx3boP+s7vXluOYe4w6W7NKE6kL/hX3NEQQi2mMzZNnZLV+hkjGaMoM0mxME/GgRzE9M+G+xHC/MjRbOIDauHfh1eLkDg+bil8RrMJLkxjojvlZswwktOlSdwb2YBHQsIuuHy9yFWxLRo4e+Xdxm8YVrstkNxHcgEQ+aLjPNnCNLz9Z7EDFv2FK84eTvn8bebME71mfJKQfmTHV97E06kCZjBoso7ZlJvRGlwVby90GJH3XsTRXussPav3pjTJJJnCE8tWaLsDWHIIgVnW0uXB/L1OAMqoQZuEXolk/6dSJXo6Tsi3SSWLnWvYc/GbSHVqpJXlSm73H4tuoh9NjvkA/eIPZJs0x7hIWY=
 python:
-  - 3.6
-  - 3.7
+  - "3.6"
+  - "3.7"
+before_install:
+  - pip install poetry
 install:
-  - pip install -r requirements-dev.txt
+  - poetry install
 script:
-  - pytest
+  - poetry run flake8 --ignore=E501 rs3clans/
+  - poetry run pytest
+before_deploy:
+  - poetry config http-basic.pypi $PYPI_USER $PYPI_PASS
+  - poetry build
+deploy:
+  provider: script
+  script: poetry publish
+  skip_cleanup: true
+  on:
+    tags: true

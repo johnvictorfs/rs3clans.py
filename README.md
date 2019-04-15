@@ -10,7 +10,7 @@ A Python 3 module wrapper for RuneScape 3 API
 
 - [`Python 3.6+`](https://www.python.org/)
 
-- [`requests>=2.19.1`](http://docs.python-requests.org/en/master/)
+- [`requests>=2.21.0`](http://docs.python-requests.org/en/master/)
 
 ***
 
@@ -22,20 +22,12 @@ $ python3 -m pip install rs3clans
 
 ***
 
-## Manual Setup:
-*(Requires [`Git`](https://git-scm.com/))*
-```bash
-$ cd /your/projects/dir/
-$ git clone https://github.com/johnvictorfs/rs3clans.py
-$ cd rs3clans.py
-$ python3 setup.py install
-```
-
-***
-
 ## Usage:
 
+<details>
+<summary>
 > Players
+</summary>
 
 - Creating a Player object
     - Always check if a player actually exists before doing anything with it
@@ -134,8 +126,12 @@ True
 >>> player.clan
 'Atlantis'
 ```
+</details>
 
+<details>
+<summary>
 > Clans
+</summary>
 
 - Creating a Clan object
     - Always check if a clan actually exists before doing anything with it
@@ -156,19 +152,20 @@ True
 - Getting information about a specific member in that clan
     - Clan.member attribute (dict) (requires case-sensitive name)
     - Clan.get_member() (method) (does not require case-sensitive name)
+    - Returns a ClanMember Object
 ```python
 >>> # Case-sensitive
 >>> clan.member['NRiver']
-{'rank': 'Overseer', 'exp': 1043065027}
->>> clan.member['NRiver']['rank']
+ClanMember(NRiver, Overseer, 1043065027)
+>>> clan.member['NRiver'].rank
 'Overseer'
 ```
 
 ```python
 >>> # Case-insensitive
 >>> clan.get_member('nriver')
-{'rank': 'Overseer', 'exp': 1043065027, 'name': 'NRiver'}
->>> clan.get_member('nRiVeR')['rank']
+ClanMember(NRiver, Overseer, 1043065027)
+>>> clan.get_member('nRiVeR').rank
 'Overseer'
 ```
 
@@ -184,6 +181,21 @@ True
 303305888.44288576
 ```
 
+- Iterate through a Clan
+```python
+>>> for member in clan:
+>>>     print(f"{member} - {member.name}")
+ClanMember(Pedim, Owner, 1249520826) - Pedim
+ClanMember(Acriano, Overseer, 1903276564) - Acriano
+ClanMember(Cogu, Overseer, 1829449412) - Cogu
+ClanMember(Black bullet, Overseer, 1100767386) - Black Bullet
+ClanMember(NRiver, Overseer, 1090093362) - NRiver
+ClanMember(Kurenaii, Overseer, 395850997) - Kurenaii
+...
+```
+
+</details>
+
 ***
 
 ## Contributing:
@@ -194,12 +206,16 @@ True
 - [Fork](https://github.com/johnvictorfs/rs3clans.py/fork) the repository
 
 - Install Dev dependencies
-    - With pipenv
+    - With poetry
         ```bash
-        $ pipenv install --dev
+        $ python3 -m virtualenv .venv
+        $ poetry shell
+        $ poetry install
         ```
     - Without pipenv
         ```bash
+        $ python3 -m virtualenv .venv
+        $ source .venv/bin/activate
         $ pip install -r requirements-dev.txt
         ```
 
@@ -207,8 +223,6 @@ True
     ```bash
     $ pytest
     ```
-
-- Send a GitHub Pull Request to the repository's [`master branch`](https://github.com/johnvictorfs/rs3clans.py/tree/master)
 
 - Make your changes to the code in the directory `rs3clans.py/rs3clans/`
 
@@ -221,7 +235,7 @@ True
 
 - Also run `flake8` just to check if the code style is also fine
     ```bash
-    $ flake8 --ignore=E501
+    $ flake8 --ignore=E501 rs3clans/
     ```
 
 - If everything went fine then send a [Pull Request](https://github.com/johnvictorfs/rs3clans.py/pulls)

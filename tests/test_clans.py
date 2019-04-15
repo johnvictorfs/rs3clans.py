@@ -1,82 +1,53 @@
 import pytest
+
 from rs3clans import clans
-from rs3clans import ClanNotFoundError
-import requests
-import csv
 
 
-CLAN_NAME = 'Atlantis'
+class TestClans:
+    """Tests for a Clan that gets its data from a mocked clan info csv"""
+    clan_csv = '''Clanmate, Clan Rank, Total XP, Kills
+NRiver,Owner, 50, 4
+Player1,Overseer, 50, 3
+Player2,General, 200, 0
+Player3,Captain, 500, 2'''
 
+    clan = clans.Clan('name', update_stats=False, set_exp=True)
+    clan_list = clan.parse_clan_list(clan_csv)
+    clan.update(clan_list)
 
-def get_clan_list(clan_name):
-    clan_url = f'http://services.runescape.com/m=clan-hiscores/members_lite.ws?clanName={clan_name}'
-    with requests.Session() as session:
-        download = session.get(clan_url)
-        decoded = download.content.decode('windows-1252')
-        clan_list = list(csv.reader(decoded.splitlines(), delimiter=','))
-        if clan_list[0][0] != "Clanmate":
-            raise ClanNotFoundError(f"Couldn't find clan: {clan_name}")
-        for row in clan_list:
-            row[0] = row[0].replace(r"\xa0", " ")
-    return clan_list
+    def test_parse_clan_list(self):
+        with pytest.raises(IndexError):
+            self.clan.parse_clan_list('')
 
+        assert self.clan_list[0][0] == 'Clanmate'
+        assert self.clan_list[1][0] == 'NRiver'
+        assert self.clan_list[1][1] == 'Owner'
 
-def get_clan_exp(clan_list):
-    return sum(int(row[2]) for row in clan_list[1:])
+    def test_clan_exp(self):
+        assert self.clan.exp == 800
 
+    def test_clan_types(self):
+        assert isinstance(self.clan.name, str)
+        assert isinstance(self.clan.exp, int)
+        assert isinstance(self.clan.member, dict)
+        assert isinstance(self.clan.avg_exp, float) or isinstance(self.clan.avg_exp, int)
+        assert isinstance(self.clan.count, int)
+        assert isinstance(self.clan.get_member('NRiver'), clans.ClanMember)
 
-@pytest.fixture
-def valid_clan():
-    valid_clan = clans.Clan(CLAN_NAME, set_exp=True)
-    return valid_clan
+    def test_clan_leader(self):
+        leader = self.clan.leader
 
+        assert leader.name == 'NRiver'
+        assert leader.rank == 'Owner'
+        assert leader.exp == 50
 
-@pytest.fixture
-def valid_clan_list():
-    return get_clan_list(CLAN_NAME)
+    def test_get_member(self):
+        assert self.clan.get_member('asdasdasdasdasd') is None
 
+        member = self.clan.get_member('nriver')
 
-@pytest.fixture
-def valid_clan_exp(valid_clan_list):
-    return get_clan_exp(valid_clan_list)
+        assert member == self.clan.member["NRiver"]
 
-
-def test_attribute_types(valid_clan, valid_clan_list):
-    assert isinstance(valid_clan.name, str)
-    assert isinstance(valid_clan.exp, int)
-    assert isinstance(valid_clan.member, dict)
-    assert isinstance(valid_clan.avg_exp, float) or isinstance(valid_clan_exp.avg_exp, int)
-    assert isinstance(valid_clan.count, int)
-    assert isinstance(valid_clan.get_member(valid_clan_list[1][0]), dict)
-
-
-def test_clan_name(valid_clan):
-    assert valid_clan.name == CLAN_NAME
-
-
-def test_clan_exception():
-    with pytest.raises(ClanNotFoundError):
-        clans.Clan('clan_that_cannot_possibly_exist_999999')
-
-
-def test_none_clan_name():
-    with pytest.raises(TypeError):
-        clans.Clan(name=None)
-
-
-def test_clan_exp(valid_clan):
-    clan_list = get_clan_list(CLAN_NAME)
-    clan_exp = get_clan_exp(clan_list)
-    assert (valid_clan.exp - clan_exp) < 10_000_000
-
-
-def test_clan_leader(valid_clan, valid_clan_list):
-    valid_clan_leader = None
-    for key, value in valid_clan.member.items():
-        if value['rank'] == 'Owner':
-            valid_clan_leader = key
-    assert valid_clan_list[1][0] == valid_clan_leader
-
-
-def test_status_codes(valid_clan):
-    assert valid_clan.hiscores_status_code == 200
+        assert member.name == 'NRiver'
+        assert member.rank == 'Owner'
+        assert member.exp == 50

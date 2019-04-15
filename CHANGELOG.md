@@ -4,6 +4,43 @@
 
 ***
 
+### 1.1.0
+
+- Created new `ClanMember` class, that represents all Members in a Clan now, instead of a dictionary:
+    ```python3
+    >>> for member in clan:
+    >>>     print(f"{member} - {member.name}")
+    ClanMember(Pedim, Owner, 1249520826) - Pedim
+    ClanMember(Acriano, Overseer, 1903276564) - Acriano
+    ClanMember(Cogu, Overseer, 1829449412) - Cogu
+    ClanMember(Black bullet, Overseer, 1100767386) - Black Bullet
+    ClanMember(NRiver, Overseer, 1090093362) - NRiver
+    ClanMember(Kurenaii, Overseer, 395850997) - Kurenaii
+    ...
+    ```
+    
+    `ClanMember.name` (str): Name of the Clan Member
+    `ClanMember.rank` (str): Rank of the Clan Member
+    `ClanMember.exp` (int): Clan Exp of the Clan Member
+
+- Ditched Pipenv for [Poetry](https://github.com/sdispater/poetry/)
+
+- Kept `requirements.txt` and `requirements-dev.txt` for usage without poetry
+
+- No longer using `setup.py` for deploying since Poetry does it automatically
+
+- Added checking for `flake8` in Travis-ci build
+
+- Made all `clans` tests not do any request, soon to be done with the `players` module as well
+
+- Updated All Doc Strings to Google Style, preparing to go back to auto-generated docs
+
+- `Player`, `Clan` and `ClanMember` are now dataclasses
+
+- `dataclasses` is now a dependency in Python < 3.7
+
+***
+
 ### 1.0.8
 
 - Fixed issue with not being able to create a `Player` on some specific cases if `runemetrics` argument was passed as `True` and its name had spaces on it
