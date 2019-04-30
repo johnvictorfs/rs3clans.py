@@ -9,7 +9,9 @@ class TestClans:
 NRiver,Owner, 50, 4
 Player1,Overseer, 50, 3
 Player2,General, 200, 0
-Player3,Captain, 500, 2'''
+Player3,Captain, 500, 2
+Player Spaces,Captain, 750, 4
+Nb\xa0Spaces,Recruit, 200, 6'''
 
     clan = clans.Clan('name', update_stats=False, set_exp=True)
     clan_list = clan.parse_clan_list(clan_csv)
@@ -24,7 +26,7 @@ Player3,Captain, 500, 2'''
         assert self.clan_list[1][1] == 'Owner'
 
     def test_clan_exp(self):
-        assert self.clan.exp == 800
+        assert self.clan.exp == (50 + 50 + 200 + 500 + 750 + 200)
 
     def test_clan_types(self):
         assert isinstance(self.clan.name, str)
@@ -42,12 +44,26 @@ Player3,Captain, 500, 2'''
         assert leader.exp == 50
 
     def test_get_member(self):
+        """
+        Testing getting a normal Member from a Clan, a Member with spaces in its name, and a Member with non-breaking
+        spaces in its name (what is returned by Jagex's API normally)
+        """
         assert self.clan.get_member('asdasdasdasdasd') is None
 
         member = self.clan.get_member('nriver')
-
         assert member == self.clan.member["NRiver"]
-
         assert member.name == 'NRiver'
         assert member.rank == 'Owner'
         assert member.exp == 50
+
+        nb_spaces = self.clan.get_member('nb spaces')
+        assert nb_spaces == self.clan.member["Nb Spaces"]
+        assert nb_spaces.name == 'Nb Spaces'
+        assert nb_spaces.rank == 'Recruit'
+        assert nb_spaces.exp == 200
+
+        with_spaces = self.clan.get_member('player spaces')
+        assert with_spaces == self.clan.member["Player Spaces"]
+        assert with_spaces.name == 'Player Spaces'
+        assert with_spaces.rank == 'Captain'
+        assert with_spaces.exp == 750

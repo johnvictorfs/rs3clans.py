@@ -4,6 +4,15 @@
 
 ***
 
+### 1.1.1 and 1.1.2
+
+- Removed random print statement when creating a `Clan` object
+
+- Fixed issue with non-breaking spaces not being removed from Player names in a `Clan` object member attribute, meaning you couldn't use `Clan.get_member` or `Clan.member` to get a Player that had spaces in its name
+    - Added tests to make sure this doesn't break again in the future
+
+***
+
 ### 1.1.0
 
 - Created new `ClanMember` class, that represents all Members in a Clan now, instead of a dictionary:
