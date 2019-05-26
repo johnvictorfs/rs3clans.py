@@ -4,6 +4,12 @@
 
 ***
 
+### 1.1.3
+
+- Fixed issues with usernames that had dashes (`-`) in their username being marked as non-existent players
+
+***
+
 ### 1.1.1 and 1.1.2
 
 - Removed random print statement when creating a `Clan` object
