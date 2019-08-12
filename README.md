@@ -26,7 +26,7 @@ $ python3 -m pip install rs3clans
 
 <details>
 <summary>
-> Players
+Players
 </summary>
 
 - Creating a Player object
@@ -130,7 +130,7 @@ True
 
 <details>
 <summary>
-> Clans
+Clans
 </summary>
 
 - Creating a Clan object
