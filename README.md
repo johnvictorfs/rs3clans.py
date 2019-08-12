@@ -212,7 +212,7 @@ ClanMember(Kurenaii, Overseer, 395850997) - Kurenaii
         $ poetry shell
         $ poetry install
         ```
-    - Without pipenv
+    - Without poetry
         ```bash
         $ python3 -m virtualenv .venv
         $ source .venv/bin/activate
