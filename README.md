@@ -201,7 +201,7 @@ ClanMember(Kurenaii, Overseer, 395850997) - Kurenaii
 ## Contributing:
 
 - Guidelines:
-    - Follow Pep8 (recomended linter: flake8)
+    - Follow Pep8 (linter: flake8)
 
 - [Fork](https://github.com/johnvictorfs/rs3clans.py/fork) the repository
 
