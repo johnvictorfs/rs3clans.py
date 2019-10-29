@@ -201,20 +201,20 @@ ClanMember(Kurenaii, Overseer, 395850997) - Kurenaii
 ## Contributing:
 
 - Guidelines:
-    - Follow Pep8 with the exception of `E501 (line too long)`
+    - Follow Pep8 (linter: flake8)
 
 - [Fork](https://github.com/johnvictorfs/rs3clans.py/fork) the repository
 
 - Install Dev dependencies
     - With poetry
         ```bash
-        $ python3 -m virtualenv .venv
+        $ python3 -m venv .venv
         $ poetry shell
         $ poetry install
         ```
     - Without poetry
         ```bash
-        $ python3 -m virtualenv .venv
+        $ python3 -m venv .venv
         $ source .venv/bin/activate
         $ pip install -r requirements-dev.txt
         ```
