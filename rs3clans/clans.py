@@ -146,8 +146,7 @@ class Clan:
 
         for row in clan_list:
             # Replacing non-breaking spaces with actual spaces
-            print(row[0])
-            row[0] = row[0].replace(r"\xa0", " ")
+            row[0] = ' '.join(row[0].split())
         return clan_list
 
     @staticmethod
